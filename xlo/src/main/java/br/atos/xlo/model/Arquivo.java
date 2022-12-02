@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -23,6 +24,7 @@ public class Arquivo implements Serializable {
 	@Column(name = "VC_END_ARQUIVO")
 	private String endArquivo;
 
+
 	public int getCodArquivo() {
 		return codArquivo;
 	}
@@ -34,6 +36,7 @@ public class Arquivo implements Serializable {
 	public String getEndArquivo() {
 		return endArquivo;
 	}
+
 
 	public void setEndArquivo(String endArquivo) {
 		this.endArquivo = endArquivo;

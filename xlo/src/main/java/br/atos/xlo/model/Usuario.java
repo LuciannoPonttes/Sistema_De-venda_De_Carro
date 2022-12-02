@@ -1,13 +1,16 @@
 package br.atos.xlo.model;
 
 import java.io.Serializable;
+
 import java.util.Date;
+
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -17,6 +20,7 @@ import javax.persistence.Table;
 @Table(name = "TB_USUARIO")
 public class Usuario implements Serializable {
 
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -24,11 +28,13 @@ public class Usuario implements Serializable {
 	@Column(name = "NI_COD_USUARIO")
 	private int codUsuario;
 
+
 	@ManyToMany()
 	private List<Role> roles;
 
 	@OneToMany()
 	private List<Endereco> enderecos;
+
 
 	@Column(name = "VC_NOME")
 	private String nome;
@@ -44,6 +50,7 @@ public class Usuario implements Serializable {
 	private Date dtCadastro;
 	@Column(name = "DTH_ATUALIZACAO")
 	private Date dtAtualizacao;
+
 
 	public int getCodUsuario() {
 		return codUsuario;
@@ -105,9 +112,11 @@ public class Usuario implements Serializable {
 		return dtAtualizacao;
 	}
 
+
 	public void setDtAtualizacao(Date dtAtualizacao) {
 		this.dtAtualizacao = dtAtualizacao;
 	}
+
 
 	public List<Role> getRoles() {
 		return roles;
@@ -124,5 +133,6 @@ public class Usuario implements Serializable {
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
 	}
+
 
 }

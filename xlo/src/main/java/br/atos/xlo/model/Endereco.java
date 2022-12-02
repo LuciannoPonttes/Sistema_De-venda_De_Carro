@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -33,6 +34,7 @@ public class Endereco implements Serializable {
 	private int numero;
 	@Column(name = "VC_COMPLEMENTO")
 	private String complemento;
+
 
 	public int getCodEndereco() {
 		return codEndereco;
@@ -97,5 +99,6 @@ public class Endereco implements Serializable {
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
+
 
 }
