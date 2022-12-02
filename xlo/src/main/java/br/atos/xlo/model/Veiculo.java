@@ -69,6 +69,10 @@ public class Veiculo implements Serializable {
 	@JoinColumn(name = "NI_COD_MODELO", referencedColumnName = "NI_COD_MODELO")
 	private Modelo modelo;
 
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "NI_COD_USUARIO", referencedColumnName = "NI_COD_USUARIO")
+	private Usuario usuario;
+
 	@ManyToMany()
 	private List<VeiculoItem> itemsVeiculo;
 
@@ -196,13 +200,12 @@ public class Veiculo implements Serializable {
 		this.itemsVeiculo = itemsVeiculo;
 	}
 
-	@Override
-	public String toString() {
-		return "Veiculo [codVeiculo=" + codVeiculo + ", cambio=" + cambio + ", anoVeiculo=" + anoVeiculo
-				+ ", indicadorGarantiaFabrica=" + indicadorGarantiaFabrica + ", numQuilometragem=" + numQuilometragem
-				+ ", placa=" + placa + ", valor=" + valor + ", statusVeiculo=" + statusVeiculo + ", dataInclusao="
-				+ dataInclusao + ", dataAtualizacao=" + dataAtualizacao + ", dataVenda=" + dataVenda + ", categoria="
-				+ categoria + ", marca=" + marca + ", modelo=" + modelo + ", itemsVeiculo=" + itemsVeiculo + "]";
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }
