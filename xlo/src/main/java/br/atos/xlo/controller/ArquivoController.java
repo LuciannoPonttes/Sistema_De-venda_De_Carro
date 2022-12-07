@@ -11,7 +11,6 @@ import br.atos.xlo.repository.RoleRepository;
 
 @RestController
 @RequestMapping("/api/arquivo")
-@CrossOrigin
 public class ArquivoController {
 
 	@Autowired
