@@ -1,12 +1,15 @@
 package br.atos.xlo.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,6 +28,9 @@ public class VeiculoItem implements Serializable {
 
 	@Column(name = "NI_STATUS_REGISTRO")
 	private int statusRegistro;
+
+	@ManyToMany(mappedBy = "itemsVeiculo")
+	private List<Veiculo> veiculos = new ArrayList<>();
 
 	public VeiculoItem() {
 		super();
@@ -54,10 +60,12 @@ public class VeiculoItem implements Serializable {
 		this.statusRegistro = statusRegistro;
 	}
 
-	@Override
-	public String toString() {
-		return "VeiculoItem [codigoItem=" + codigoItem + ", descricaoItem=" + descricaoItem + ", statusRegistro="
-				+ statusRegistro + "]";
+	public List<Veiculo> getVeiculos() {
+		return veiculos;
+	}
+
+	public void setVeiculos(List<Veiculo> veiculos) {
+		this.veiculos = veiculos;
 	}
 
 }

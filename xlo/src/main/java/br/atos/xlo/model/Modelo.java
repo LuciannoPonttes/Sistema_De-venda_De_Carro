@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +23,9 @@ public class Modelo implements Serializable {
 
 	@Column(name = "VC_DESC_MODELO")
 	private String descricaoModelo;
+
+	@OneToOne(mappedBy = "modelo")
+	private Veiculo veiculo;
 
 	public Modelo() {
 		super();
@@ -43,9 +47,12 @@ public class Modelo implements Serializable {
 		this.descricaoModelo = descricaoModelo;
 	}
 
-	@Override
-	public String toString() {
-		return "Modelo [codigoModelo=" + codigoModelo + ", descricaoModelo=" + descricaoModelo + "]";
+	public Veiculo getVeiculo() {
+		return veiculo;
+	}
+
+	public void setVeiculo(Veiculo veiculo) {
+		this.veiculo = veiculo;
 	}
 
 }
