@@ -20,7 +20,6 @@ import br.atos.xlo.repository.VeiculoRepository;
 
 @RestController
 @RequestMapping("/api/veiculo")
-@CrossOrigin
 public class VeiculoController {
 
 	@Autowired
