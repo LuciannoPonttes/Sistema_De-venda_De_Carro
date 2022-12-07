@@ -40,13 +40,13 @@ public class UsuarioController {
 	@PutMapping
 	public String editar(@RequestBody UsuarioDTO usuarioDTO) {
 		usuarioService.editar(usuarioDTO);
-		return "Usuarios Editado";
+		return "Usuario Editado";
 	}
 	
 	@DeleteMapping(value= "/{id}")
 	public String excluir(@PathVariable(value="id") Long id) {
 		usuarioService.excluir(id);
-		return "Usuarios Excluído " + id;
+		return "Usuario Excluído " + id;
 	}
 
 	
