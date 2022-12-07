@@ -1,25 +1,27 @@
 package br.atos.xlo.model;
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
 import java.util.Date;
-
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "TB_USUARIO")
 public class Usuario implements Serializable {
-
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,13 +30,15 @@ public class Usuario implements Serializable {
 	@Column(name = "NI_COD_USUARIO")
 	private int codUsuario;
 
+	@ManyToMany
+	@JoinTable(name = "TB_ROLE_USUARIO", joinColumns = @JoinColumn(name = "NI_COD_USUARIO", referencedColumnName = "NI_COD_USUARIO"), inverseJoinColumns = @JoinColumn(name = "NI_COD_ROLE", referencedColumnName = "NI_COD_ROLE"))
+	private List<Role> roles = new ArrayList<>();
 
-	@ManyToMany()
-	private List<Role> roles;
+	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+	private Endereco endereco;
 
-	@OneToMany()
-	private List<Endereco> enderecos;
-
+	@OneToMany(mappedBy = "usuario")
+	private Set<Veiculo> veiculo;
 
 	@Column(name = "VC_NOME")
 	private String nome;
@@ -50,7 +54,6 @@ public class Usuario implements Serializable {
 	private Date dtCadastro;
 	@Column(name = "DTH_ATUALIZACAO")
 	private Date dtAtualizacao;
-
 
 	public int getCodUsuario() {
 		return codUsuario;
@@ -112,11 +115,17 @@ public class Usuario implements Serializable {
 		return dtAtualizacao;
 	}
 
-
 	public void setDtAtualizacao(Date dtAtualizacao) {
 		this.dtAtualizacao = dtAtualizacao;
 	}
 
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 
 	public List<Role> getRoles() {
 		return roles;
@@ -126,13 +135,12 @@ public class Usuario implements Serializable {
 		this.roles = roles;
 	}
 
-	public List<Endereco> getEnderecos() {
-		return enderecos;
+	public Set<Veiculo> getVeiculo() {
+		return veiculo;
 	}
 
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
+	public void setVeiculo(Set<Veiculo> veiculo) {
+		this.veiculo = veiculo;
 	}
-
 
 }

@@ -6,8 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -35,6 +36,9 @@ public class Endereco implements Serializable {
 	@Column(name = "VC_COMPLEMENTO")
 	private String complemento;
 
+	@OneToOne
+	@JoinColumn(name = "NI_COD_USUARIO")
+	private Usuario usuario;
 
 	public int getCodEndereco() {
 		return codEndereco;
@@ -100,5 +104,14 @@ public class Endereco implements Serializable {
 		this.complemento = complemento;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	
 
 }

@@ -2,6 +2,7 @@ package br.atos.xlo.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +13,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -57,6 +60,12 @@ public class Veiculo implements Serializable {
 	@Column(name = "DTH_VENDA")
 	private Date dataVenda;
 
+	@Column(name = "VC_ESTADO")
+	private String estado;
+
+	@Column(name = "VC_CIDADE")
+	private String cidade;
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "NI_COD_CATEGORIA", referencedColumnName = "NI_COD_CATEGORIA")
 	private Categoria categoria;
@@ -69,12 +78,17 @@ public class Veiculo implements Serializable {
 	@JoinColumn(name = "NI_COD_MODELO", referencedColumnName = "NI_COD_MODELO")
 	private Modelo modelo;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "NI_COD_USUARIO", referencedColumnName = "NI_COD_USUARIO")
 	private Usuario usuario;
 
-	@ManyToMany()
-	private List<VeiculoItem> itemsVeiculo;
+	@ManyToMany
+	@JoinTable(name = "TB_VEICULO_ITEM_VEIC", joinColumns = @JoinColumn(name = "NI_COD_VEICULO", referencedColumnName = "NI_COD_VEICULO"), inverseJoinColumns = @JoinColumn(name = "NI_COD_ITEM", referencedColumnName = "NI_COD_ITEM"))
+	private List<VeiculoItem> itemsVeiculo = new ArrayList<>();
+
+	@ManyToMany
+	@JoinTable(name = "TB_VEICULO_ARQUIVO", joinColumns = @JoinColumn(name = "NI_COD_VEICULO", referencedColumnName = "NI_COD_VEICULO"), inverseJoinColumns = @JoinColumn(name = "NI_COD_ARQUIVO", referencedColumnName = "NI_COD_ARQUIVO"))
+	private List<Arquivo> arquivosVeiculo = new ArrayList<>();
 
 	public Veiculo() {
 		super();
@@ -168,6 +182,22 @@ public class Veiculo implements Serializable {
 		this.dataVenda = dataVenda;
 	}
 
+	public List<VeiculoItem> getItemsVeiculo() {
+		return itemsVeiculo;
+	}
+
+	public void setItemsVeiculo(List<VeiculoItem> itemsVeiculo) {
+		this.itemsVeiculo = itemsVeiculo;
+	}
+
+	public List<Arquivo> getArquivosVeiculo() {
+		return arquivosVeiculo;
+	}
+
+	public void setArquivosVeiculo(List<Arquivo> arquivosVeiculo) {
+		this.arquivosVeiculo = arquivosVeiculo;
+	}
+
 	public Categoria getCategoria() {
 		return categoria;
 	}
@@ -192,20 +222,28 @@ public class Veiculo implements Serializable {
 		this.modelo = modelo;
 	}
 
-	public List<VeiculoItem> getItemsVeiculo() {
-		return itemsVeiculo;
-	}
-
-	public void setItemsVeiculo(List<VeiculoItem> itemsVeiculo) {
-		this.itemsVeiculo = itemsVeiculo;
-	}
-
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
 	}
 
 }
