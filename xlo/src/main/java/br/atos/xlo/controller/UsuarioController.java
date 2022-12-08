@@ -23,9 +23,11 @@ import com.fasterxml.jackson.annotation.JsonView;
 import br.atos.xlo.controller.dto.base.View;
 import br.atos.xlo.dto.UsuarioDTO;
 import br.atos.xlo.services.UsuarioServiceImpl;
+import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 
+@Api(tags = "usuario")
 @RestController
 @RequestMapping(value = "/api/usuario")
 public class UsuarioController {
@@ -38,7 +40,7 @@ public class UsuarioController {
 	@JsonView(View.ControllerView.Public.class)
 	public List<UsuarioDTO> listar(@RequestParam(value = "Nome do Usuário", required = false) String nome) {
 		usuarioService.listar(nome);
-		
+
 		return Arrays.asList(new UsuarioDTO());
 	}
 
