@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.atos.xlo.dto.UsuarioDTO;
 import br.atos.xlo.services.UsuarioServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
 
 //Classe que será utilizada para as operações de usuários
 //Data: 30-11-2022
@@ -24,29 +25,32 @@ public class UsuarioController {
 	@Autowired
 	UsuarioServiceImpl usuarioService;
 	
-	
+	@Operation(summary = "Adicionar Usuário")
 	@PostMapping
 	public String adicionar(@RequestBody UsuarioDTO usuarioDTO) {
 		usuarioService.adicionar(usuarioDTO);
 		return "Usuario Criado";
 	}
 	
+	@Operation(summary = "Listar Usuários")
 	@GetMapping
 	public String listar(@RequestParam(value="nome", required = false) String nome) {
 		usuarioService.listar(nome);
 		return "Usuarios Listados" + nome;
 	}
 	
+	@Operation(summary = "Editar Usuário")
 	@PutMapping
 	public String editar(@RequestBody UsuarioDTO usuarioDTO) {
 		usuarioService.editar(usuarioDTO);
-		return "Usuarios Editado";
+		return "Usuario Editado";
 	}
 	
+	@Operation(summary = "Excluir Usuário")
 	@DeleteMapping(value= "/{id}")
 	public String excluir(@PathVariable(value="id") Long id) {
 		usuarioService.excluir(id);
-		return "Usuarios Excluído " + id;
+		return "Usuario Excluído " + id;
 	}
 
 	
