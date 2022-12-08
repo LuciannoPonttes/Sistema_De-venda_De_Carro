@@ -14,5 +14,13 @@ public interface View {
 		public static interface GET {
 
 		}
+
+		public static interface Public {
+
+		}
+
+		public static interface Internal {
+
+		}
 	}
 }

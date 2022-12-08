@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import br.atos.xlo.controller.dto.base.View;
@@ -16,50 +17,57 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class UsuarioDTO {
 
 	@Schema(description = "Código do Usuário", example = "1", required = false)
-	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.PUT.class })
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.PUT.class,
+			View.ControllerView.Public.class })
 	private int codUsuario;
 
-	@JsonView(value = { View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Internal.class })
 	private List<RoleDTO> roles;
 
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class,
+			View.ControllerView.Public.class })
 	@Valid
 	private EnderecoDTO endereco;
 
 	@Schema(description = "Nome do Usuário", example = "João", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class,
+			View.ControllerView.Public.class })
 	@NotNull
 	@NotBlank
 	private String nome;
 
-	@Schema(description = "CPF do Usuário", example = "11111111111", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.GET.class })
+	@Schema(description = "CPF do Usuário", example = "'11111111111'", required = true)
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.GET.class,
+			View.ControllerView.Public.class })
 	@NotNull
 	@NotBlank
 	private String cpf;
 
 	@Schema(description = "E-mail do Usuário", example = "joao@xlo.com.br", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class,
+			View.ControllerView.Public.class })
 	@NotNull
 	@NotBlank
 	private String email;
 
-	@Schema(description = "Senha do Usuário", example = "123456", required = true)
-	@JsonView(value = { View.ControllerView.POST.class })
+	@Schema(description = "Senha do Usuário", example = "'123456'", required = true)
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.Internal.class })
 	@NotNull
 	@NotBlank
 	private String senha;
 
-	@JsonView(value = { View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
 	private int statusUsuario;
 
-	@JsonView(value = { View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 	private Date dtCadastro;
 
-	@JsonView(value = { View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Internal.class })
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 	private Date dtAtualizacao;
 
-	@JsonView(value = { View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
 	private Set<VeiculoDTO> veiculo;
 
 	public int getCodUsuario() {
