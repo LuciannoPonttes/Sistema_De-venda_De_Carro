@@ -19,6 +19,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.atos.xlo.dto.enums.StatusUsuarioEnum;
+
 @Entity
 @Table(name = "TB_USUARIO")
 public class Usuario implements Serializable {
@@ -46,14 +48,15 @@ public class Usuario implements Serializable {
 	private String cpf;
 	@Column(name = "VC_EMAIL")
 	private String email;
-	@Column(name = "VC_SENHA")
-	private String senha;
 	@Column(name = "NI_STATUS")
-	private int statusUsuario;
+	private StatusUsuarioEnum statusUsuario;
 	@Column(name = "DTH_CADASTRO")
 	private Date dtCadastro;
 	@Column(name = "DTH_ATUALIZACAO")
 	private Date dtAtualizacao;
+
+	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+	private Login login;
 
 	public int getCodUsuario() {
 		return codUsuario;
@@ -87,19 +90,11 @@ public class Usuario implements Serializable {
 		this.email = email;
 	}
 
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public int getStatusUsuario() {
+	public StatusUsuarioEnum getStatusUsuario() {
 		return statusUsuario;
 	}
 
-	public void setStatusUsuario(int statusUsuario) {
+	public void setStatusUsuario(StatusUsuarioEnum statusUsuario) {
 		this.statusUsuario = statusUsuario;
 	}
 
@@ -141,6 +136,14 @@ public class Usuario implements Serializable {
 
 	public void setVeiculo(Set<Veiculo> veiculo) {
 		this.veiculo = veiculo;
+	}
+
+	public Login getLogin() {
+		return login;
+	}
+
+	public void setLogin(Login login) {
+		this.login = login;
 	}
 
 }
