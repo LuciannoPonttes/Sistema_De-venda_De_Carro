@@ -6,6 +6,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,54 +23,51 @@ import com.fasterxml.jackson.annotation.JsonView;
 import br.atos.xlo.controller.dto.base.View;
 import br.atos.xlo.dto.UsuarioDTO;
 import br.atos.xlo.services.UsuarioServiceImpl;
+import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.Parameter;
 
-//Classe que será utilizada para as operações de usuários
-//Data: 30-11-2022
-
-@RestController @RequestMapping(value="/api/usuario")
-
+@Api(tags = "usuario")
+@RestController
+@RequestMapping(value = "/api/usuario")
 public class UsuarioController {
 
 	@Autowired
 	UsuarioServiceImpl usuarioService;
 
-	@Operation(summary = "Adicionar Usuário")
-	@PostMapping
-	public UsuarioDTO adicionar(@JsonView(value = {
-			View.ControllerView.POST.class }) @Valid @RequestBody(required = true) UsuarioDTO usuario) {
-		return usuarioService.adicionar(usuario);
-	}
-
 	@Operation(summary = "Listar Usuários")
-	@ApiResponses(value = { @ApiResponse(content = {
-			@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = UsuarioDTO.class))) }) })
-
-	@GetMapping
-	public List<UsuarioDTO> listar(@RequestParam(value = "nome", required = false) String nome) {
+	@GetMapping(produces = "application/json")
+	@JsonView(View.ControllerView.Public.class)
+	public List<UsuarioDTO> listar(@RequestParam(value = "Nome do Usuário", required = false) String nome) {
 		usuarioService.listar(nome);
 
 		return Arrays.asList(new UsuarioDTO());
 	}
 
+	@Operation(summary = "Adicionar Usuário")
+	@PostMapping(produces = "application/json")
+	@JsonView(View.ControllerView.Public.class)
+	public UsuarioDTO adicionar(@JsonView(value = {
+			View.ControllerView.POST.class }) @RequestBody(required = true) @Valid UsuarioDTO usuario) {
+		return usuarioService.adicionar(usuario);
+	}
+
 	@Operation(summary = "Editar Usuário")
-	@PutMapping
+	@PutMapping(produces = "application/json")
+	@JsonView(View.ControllerView.Public.class)
 	public UsuarioDTO editar(@JsonView(value = {
-			View.ControllerView.PUT.class }) @Valid @RequestBody(required = true) UsuarioDTO usuario) {
+			View.ControllerView.PUT.class }) @RequestBody(required = true) @Valid UsuarioDTO usuario) {
 		return usuarioService.editar(usuario);
 	}
 
 	@Operation(summary = "Excluir Usuário")
 	@DeleteMapping(value = "/{id}")
-	public String excluir(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<Void> excluir(
+			@PathVariable(value = "id") @Parameter(description = "ID do usuário para ser deletado", example = "1", required = true) Long id) {
 
 		usuarioService.excluir(id);
-		return "Usuario Excluído " + id;
+
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }
