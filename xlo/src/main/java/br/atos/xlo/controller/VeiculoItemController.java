@@ -22,17 +22,20 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import br.atos.xlo.controller.dto.base.View;
 import br.atos.xlo.dto.VeiculoItemDTO;
+
 import br.atos.xlo.services.VeiculoItemServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 
 @Api(tags = "item veiculo")
+
 @RestController
 @RequestMapping("/api/veiculo-item")
 public class VeiculoItemController {
-	
+
 	@Autowired
+
 	VeiculoItemServiceImpl veiculoItemService;
 
 	@Operation(summary = "Listar Item do veículos")
@@ -71,3 +74,4 @@ public class VeiculoItemController {
 	}
 
 }
+

@@ -22,17 +22,20 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import br.atos.xlo.controller.dto.base.View;
 import br.atos.xlo.dto.CategoriaDTO;
+
 import br.atos.xlo.services.CategoriaServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 
 @Api(tags = "categoria")
+
 @RestController
 @RequestMapping("/api/categoria")
 public class CategoriaController {
 	
 	@Autowired
+
 	CategoriaServiceImpl categoriaService;
 
 	@Operation(summary = "Listar Categorias")
@@ -50,6 +53,7 @@ public class CategoriaController {
 	public CategoriaDTO adicionar(@JsonView(value = {
 			View.ControllerView.POST.class }) @RequestBody(required = true) @Valid CategoriaDTO categoria) {
 		return categoriaService.adicionar(categoria);
+
 	}
 
 	@Operation(summary = "Editar categoria")
