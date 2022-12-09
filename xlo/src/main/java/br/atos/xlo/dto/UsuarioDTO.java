@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import br.atos.xlo.controller.dto.base.View;
+import br.atos.xlo.dto.enums.StatusUsuarioEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UsuarioDTO {
@@ -21,9 +22,11 @@ public class UsuarioDTO {
 			View.ControllerView.Public.class })
 	private int codUsuario;
 
+	@Schema(description = "Roles do Usuário", required = false)
 	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Internal.class })
 	private List<RoleDTO> roles;
 
+	@Schema(description = "Endereço do Usuário", required = false)
 	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class,
 			View.ControllerView.Public.class })
 	@Valid
@@ -37,7 +40,7 @@ public class UsuarioDTO {
 	private String nome;
 
 	@Schema(description = "CPF do Usuário", example = "'11111111111'", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.GET.class,
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.GET.class, View.ControllerView.PUT.class,
 			View.ControllerView.Public.class })
 	@NotNull
 	@NotBlank
@@ -50,25 +53,30 @@ public class UsuarioDTO {
 	@NotBlank
 	private String email;
 
-	@Schema(description = "Senha do Usuário", example = "'123456'", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.Internal.class })
-	@NotNull
-	@NotBlank
-	private String senha;
+	@JsonView(value = { View.ControllerView.POST.class })
+	private LoginDTO login;
 
+	@Schema(description = "Status do Usuário", example = "1", required = false)
 	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
-	private int statusUsuario;
+	private StatusUsuarioEnum statusUsuario;
 
+	@Schema(description = "Data de cadastro do Usuário", example = "1099-01-01T00:00:00.000Z", required = true)
 	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 	private Date dtCadastro;
 
+	@Schema(description = "Data de atualização do Usuário", example = "1099-01-01T00:00:00.000Z", required = true)
 	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Internal.class })
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 	private Date dtAtualizacao;
 
+	@Schema(description = "Veículos do Usuário", required = false)
 	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
 	private Set<VeiculoDTO> veiculo;
+
+	public UsuarioDTO() {
+		super();
+	}
 
 	public int getCodUsuario() {
 		return codUsuario;
@@ -126,19 +134,11 @@ public class UsuarioDTO {
 		this.email = email;
 	}
 
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public int getStatusUsuario() {
+	public StatusUsuarioEnum getStatusUsuario() {
 		return statusUsuario;
 	}
 
-	public void setStatusUsuario(int statusUsuario) {
+	public void setStatusUsuario(StatusUsuarioEnum statusUsuario) {
 		this.statusUsuario = statusUsuario;
 	}
 
@@ -156,6 +156,14 @@ public class UsuarioDTO {
 
 	public void setDtAtualizacao(Date dtAtualizacao) {
 		this.dtAtualizacao = dtAtualizacao;
+	}
+
+	public LoginDTO getLogin() {
+		return login;
+	}
+
+	public void setLogin(LoginDTO login) {
+		this.login = login;
 	}
 
 }
