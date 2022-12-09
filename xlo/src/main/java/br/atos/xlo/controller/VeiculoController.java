@@ -11,8 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.atos.xlo.repository.VeiculoRepository;
+import br.atos.xlo.controller.dto.base.View;
+
 import br.atos.xlo.dto.VeiculoDTO;
 import br.atos.xlo.services.VeiculoServiceImpl;
+import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Operation;
 
 
 /**
@@ -22,6 +30,7 @@ import br.atos.xlo.services.VeiculoServiceImpl;
  */
 //Data: 30-11-2022
 
+@Api(tags = "veiculo")
 @RestController
 @RequestMapping("/api/veiculo")
 public class VeiculoController {
@@ -29,25 +38,32 @@ public class VeiculoController {
 	@Autowired
 	VeiculoServiceImpl veiculoService;
 	
-	@PostMapping
+	@Operation(summary = "Adicionar Veículo")
+	@PostMapping(produces = "application/json")
+	@JsonView(View.ControllerView.Public.class)
 	public String adicionar(@RequestBody VeiculoDTO veiculoDTO) {
 		veiculoService.adicionar(veiculoDTO);
 		return "Veiculo Criado";
 	}
 	
-	@GetMapping
+	@Operation(summary = "Listar Veículos")
+	@GetMapping(produces = "application/json")
+	@JsonView(View.ControllerView.Public.class)
 	public String listar(@RequestParam(value="nome", required = false) String nome) {
 		veiculoService.listar(nome);
 		return "Veiculos Listados" + nome;
 	}
 	
-	@PutMapping
+	@Operation(summary = "Editar Veículo")
+	@PutMapping(produces = "application/json")
+	@JsonView(View.ControllerView.Public.class)
 	public String editar(@RequestBody VeiculoDTO veiculoDTO) {
 		veiculoService.editar(veiculoDTO);
 		return "Veiculo Editado";
 	}
 	
-	@DeleteMapping(value= "/{id}")
+	@Operation(summary = "Excluir Veículo")
+	@DeleteMapping(value = "/{id}")
 	public String excluir(@PathVariable(value="id") Long id) {
 		veiculoService.excluir(id);
 		return "Veiculo Excluído " + id;

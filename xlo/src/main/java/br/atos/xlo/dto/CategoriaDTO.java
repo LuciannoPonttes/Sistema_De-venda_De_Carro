@@ -25,6 +25,11 @@ public class CategoriaDTO {
 		this.codigoCategoria = codigoCategoria;
 	}
 
+	public CategoriaDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getDescricaoCategoria() {
 		return descricaoCategoria;
 	}
