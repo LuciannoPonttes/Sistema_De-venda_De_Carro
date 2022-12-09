@@ -43,4 +43,9 @@ public class VeiculoItemDTO {
 	public static VeiculoItemDTO from(VeiculoItem item) {
 		return new VeiculoItemDTO(item.getCodigoItem(), item.getDescricaoItem(), item.getStatusRegistro());
 	}
+
+	public VeiculoItemDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 }
