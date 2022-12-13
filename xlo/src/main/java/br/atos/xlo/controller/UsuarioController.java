@@ -39,9 +39,8 @@ public class UsuarioController {
 	@GetMapping(produces = "application/json")
 	@JsonView(View.ControllerView.Public.class)
 	public List<UsuarioDTO> listar(@RequestParam(value = "Nome do Usuário", required = false) String nome) {
-		usuarioService.listar(nome);
+		return usuarioService.listar(nome);
 
-		return Arrays.asList(new UsuarioDTO());
 	}
 
 	@Operation(summary = "Adicionar Usuário")

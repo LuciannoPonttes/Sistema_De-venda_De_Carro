@@ -19,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name = "TB_VEICULO")
 public class Veiculo implements Serializable {
@@ -51,7 +53,8 @@ public class Veiculo implements Serializable {
 	@Column(name = "NI_STATUS_VEICULO")
 	private int statusVeiculo;
 
-	@Column(name = "DTH_INCLUSAO")
+	@Column(name = "DTH_INCLUSAO", nullable = false, updatable = false)
+	@CreationTimestamp
 	private Date dataInclusao;
 
 	@Column(name = "DTH_ATUALIZACAO")
