@@ -115,10 +115,10 @@ public class VeiculoDTO {
 	private int codUsuario;
 
 	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
-	private Set<VeiculoItem> itemsVeiculo; 
+	private Set<VeiculoItemDTO> itemsVeiculo; 
 
 	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
-	private Set<Arquivo> arquivosVeiculo;
+	private Set<ArquivoDTO> arquivosVeiculo;
 
 	public int getCodVeiculo() {
 		return codVeiculo;
@@ -225,19 +225,19 @@ public class VeiculoDTO {
 	}
 
 
-	public Set<VeiculoItem> getItemsVeiculo() {
+	public Set<VeiculoItemDTO> getItemsVeiculo() {
 		return itemsVeiculo;
 	}
 
-	public void setItemsVeiculo(Set<VeiculoItem> itemsVeiculo) {
+	public void setItemsVeiculo(Set<VeiculoItemDTO> itemsVeiculo) {
 		this.itemsVeiculo = itemsVeiculo;
 	}
 
-	public Set<Arquivo> getArquivosVeiculo() {
+	public Set<ArquivoDTO> getArquivosVeiculo() {
 		return arquivosVeiculo;
 	}
 
-	public void setArquivosVeiculo(Set<Arquivo> arquivosVeiculo) {
+	public void setArquivosVeiculo(Set<ArquivoDTO> arquivosVeiculo) {
 		this.arquivosVeiculo = arquivosVeiculo;
 	}
 
