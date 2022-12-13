@@ -25,6 +25,7 @@ public class LoginServiceImpl implements LoginService {
 
 	public LoginDTO adicionar(LoginDTO loginDTO, UsuarioDTO usuarioDTO) {
 		Login login = new Login();
+		login.setNomeUsuario(loginDTO.getNomeUsuario());
 		login.setUsuario(modelMapper.map(usuarioDTO, Usuario.class));
 		login.setSenha(this.generatePassword(loginDTO.getSenha()));
 

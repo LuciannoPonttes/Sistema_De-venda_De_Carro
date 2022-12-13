@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.atos.xlo.dto.LoginDTO;
 import br.atos.xlo.dto.UsuarioDTO;
 import br.atos.xlo.model.Endereco;
 import br.atos.xlo.model.Usuario;
@@ -25,9 +26,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Autowired
 	ModelMapper modelMapper;
 
+	@Autowired
+	LoginServiceImpl loginService;
+
 	@Override
 	public UsuarioDTO adicionar(UsuarioDTO usuarioDTO) {
 
+		LoginDTO login = usuarioDTO.getLogin();
 		usuarioDTO.setLogin(null);
 
 		Endereco end = modelMapper.map(usuarioDTO.getEndereco(), Endereco.class);
@@ -41,6 +46,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 		end = enderecoRepository.save(end);
 
 		usuario.setEndereco(end);
+
+		loginService.adicionar(login, modelMapper.map(usuario, UsuarioDTO.class));
 
 		return modelMapper.map(usuario, UsuarioDTO.class);
 	}

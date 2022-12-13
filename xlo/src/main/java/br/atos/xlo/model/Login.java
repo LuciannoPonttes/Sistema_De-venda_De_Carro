@@ -23,8 +23,11 @@ public class Login implements Serializable {
 	private int codLogin;
 
 	@OneToOne
-	@JoinColumn(name = "VC_USUARIO", referencedColumnName = "VC_EMAIL")
+	@JoinColumn(name = "NI_COD_USUARIO", referencedColumnName = "NI_COD_USUARIO")
 	private Usuario usuario;
+
+	@Column(name = "VC_NOME_USUARIO")
+	private String nomeUsuario;
 
 	@Column(name = "VC_SENHA")
 	private String senha;
@@ -43,6 +46,14 @@ public class Login implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
 	}
 
 	public String getSenha() {
