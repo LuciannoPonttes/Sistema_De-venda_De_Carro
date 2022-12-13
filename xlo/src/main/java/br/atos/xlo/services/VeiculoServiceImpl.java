@@ -2,11 +2,14 @@ package br.atos.xlo.services;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.atos.xlo.dto.UsuarioDTO;
 import br.atos.xlo.dto.VeiculoDTO;
 import br.atos.xlo.model.Arquivo;
 import br.atos.xlo.model.Veiculo;
@@ -52,9 +55,10 @@ public class VeiculoServiceImpl implements VeiculoService{
 	}
 
 	@Override
-	public VeiculoDTO listar(String descricao) {
-
-		return null;
+	public List<VeiculoDTO> listar() {
+		List<Veiculo> veiculos = veiculoRepository.findAll();
+		return veiculos.stream().map(user -> modelMapper.map(user, VeiculoDTO.class)).collect(Collectors.toList());
+		
 	}
 
 	@Override
@@ -82,6 +86,15 @@ public class VeiculoServiceImpl implements VeiculoService{
         
         return modelMapper.map(veiculo, VeiculoDTO.class);
 	}
+
+	@Override
+	public List<VeiculoDTO> listarRecentes() {
+		List<Veiculo> veiculos = veiculoRepository.exibirUltimosAnuncios();
+		return veiculos.stream().map(user -> modelMapper.map(user, VeiculoDTO.class)).collect(Collectors.toList());
+	}
 		
 
+	
+	
+	
 }
