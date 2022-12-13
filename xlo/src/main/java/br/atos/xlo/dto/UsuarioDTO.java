@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import br.atos.xlo.controller.dto.base.View;
-import br.atos.xlo.dto.enums.StatusUsuarioEnum;
+import br.atos.xlo.enums.StatusUsuarioEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UsuarioDTO {

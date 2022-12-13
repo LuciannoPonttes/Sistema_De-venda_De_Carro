@@ -3,6 +3,7 @@ package br.atos.xlo.dto;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import br.atos.xlo.controller.dto.base.View;
+import br.atos.xlo.model.Usuario;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public class LoginDTO {
@@ -11,9 +12,12 @@ public class LoginDTO {
 	@JsonView(value = { View.ControllerView.Internal.class })
 	private int codLogin;
 
+	@JsonView(value = { View.ControllerView.Internal.class })
+	private Usuario usuario;
+
 	@Schema(description = "Nome de Usuário", example = "joao@xlo.com.br", required = true)
 	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.Internal.class })
-	private String usuario;
+	private String nomeUsuario;
 
 	@Schema(description = "Senha do Usuário", example = "'123456'", required = true)
 	@JsonView(value = { View.ControllerView.POST.class })
@@ -27,12 +31,20 @@ public class LoginDTO {
 		this.codLogin = codLogin;
 	}
 
-	public String getUsuario() {
+	public Usuario getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(String usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
 	}
 
 	public String getSenha() {
@@ -42,4 +54,5 @@ public class LoginDTO {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+
 }

@@ -21,7 +21,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import br.atos.xlo.dto.enums.StatusUsuarioEnum;
+import br.atos.xlo.enums.StatusUsuarioEnum;
 
 @Entity
 @Table(name = "TB_USUARIO")
