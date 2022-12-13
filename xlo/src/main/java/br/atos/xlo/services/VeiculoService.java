@@ -6,7 +6,7 @@ public interface VeiculoService {
 
 	public VeiculoDTO adicionar(VeiculoDTO veiculoDTO);
 	public VeiculoDTO listar(String descricao);
-	public VeiculoDTO excluir(Long id);
+	public void excluir(Integer id);
 	public VeiculoDTO editar(VeiculoDTO veiculoDTO);
 	
 }
