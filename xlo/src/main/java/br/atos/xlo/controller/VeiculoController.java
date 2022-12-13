@@ -49,7 +49,7 @@ public class VeiculoController {
 	@GetMapping(produces = "application/json")
 	@JsonView(View.ControllerView.Public.class)
 	public String listar(@RequestParam(value="nome", required = false) String nome) {
-		veiculoService.listar(nome);
+		veiculoService.listar();
 		return "Veiculos Listados" + nome;
 	}
 	
