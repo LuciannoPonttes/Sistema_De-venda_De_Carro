@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -85,21 +84,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		return modelMapper.map(usuario, UsuarioDTO.class);
 	}
-	
+
 	@Override
 	public Page<UsuarioDTO> listarUsuarios(Pageable pageable) {
-		
+
 		Page<Usuario> usuarios = usuarioRepository.listarUsuarios(pageable);
-		
-		return new PageImpl<>(usuarios.getContent().stream()
-				.map(user -> modelMapper
-				.map(user, UsuarioDTO.class))
-				.collect(Collectors.toList()),
-				usuarios.getPageable(),
-				usuarios.getTotalElements());		     
-		
-		 
-		
+
+		return usuarios.map(user -> modelMapper.map(user, UsuarioDTO.class));
+
 	}
 
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import br.atos.xlo.controller.dto.base.View;
+import br.atos.xlo.controller.dto.base.response.ResponseNodePagination;
 import br.atos.xlo.dto.VeiculoDTO;
 import br.atos.xlo.services.VeiculoServiceImpl;
 import io.swagger.annotations.Api;
@@ -67,14 +68,14 @@ public class VeiculoController {
 	@Operation(summary = "Listar Últimos Veículos")
 	@GetMapping(produces = "application/json")
 	@JsonView(View.ControllerView.Public.class)
-	public Page<VeiculoDTO> listarVeiculos(
+	public ResponseNodePagination<VeiculoDTO> listarVeiculos(
 			@RequestParam(value = "pageIndex", required = true) @Parameter(description = "Índice que deseja consultar", example = "0", required = true) int pageIndex,
 			@RequestParam(value = "size", required = true) @Parameter(description = "tamanho da página", example = "10", required = true) int size,
-			@RequestParam(value = "status", required = true) @Parameter(description = "status do veículo", example = "1", required = true) int status	
-			) {
+			@RequestParam(value = "status", required = true) @Parameter(description = "status do veículo", example = "1", required = true) int status) {
 		Pageable pageable = PageRequest.of(pageIndex, size);
 
-		return veiculoService.listarVeiculos(pageable, status);
+		Page<VeiculoDTO> page = veiculoService.listarVeiculos(pageable, status);
+		return new ResponseNodePagination<>(HttpStatus.OK, page);
 	}
 
 }

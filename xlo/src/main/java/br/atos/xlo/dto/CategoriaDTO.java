@@ -3,10 +3,11 @@ package br.atos.xlo.dto;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import br.atos.xlo.controller.dto.base.View;
+import br.atos.xlo.controller.dto.base.response.Body;
 import br.atos.xlo.model.Veiculo;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-public class CategoriaDTO {
+public class CategoriaDTO implements Body {
 
 	@Schema(description = "Código da Categoria", example = "'1'", required = false)
 	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
