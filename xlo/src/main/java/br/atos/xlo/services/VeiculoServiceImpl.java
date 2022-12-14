@@ -7,9 +7,10 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import br.atos.xlo.dto.UsuarioDTO;
 import br.atos.xlo.dto.VeiculoDTO;
 import br.atos.xlo.model.Arquivo;
 import br.atos.xlo.model.Veiculo;
@@ -88,13 +89,12 @@ public class VeiculoServiceImpl implements VeiculoService{
 	}
 
 	@Override
-	public List<VeiculoDTO> listarRecentes() {
-		List<Veiculo> veiculos = veiculoRepository.exibirUltimosAnuncios();
-		return veiculos.stream().map(user -> modelMapper.map(user, VeiculoDTO.class)).collect(Collectors.toList());
-	}
+	public Page<VeiculoDTO> listarVeiculos(Pageable pageable, Integer status) {
 		
+		Page<Veiculo> veiculos = veiculoRepository.listarVeiculosPaginados(status, pageable);
 
-	
+		return veiculos.map(user -> modelMapper.map(user, VeiculoDTO.class)); 
+	}
 	
 	
 }

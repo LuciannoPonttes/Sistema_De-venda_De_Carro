@@ -1,6 +1,9 @@
 package br.atos.xlo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,10 +23,11 @@ import br.atos.xlo.dto.VeiculoDTO;
 import br.atos.xlo.services.VeiculoServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
-
+import io.swagger.v3.oas.annotations.Parameter;
 
 /**
  * Classe que será utilizada para as operações de veículos
+ * 
  * @author taao_
  *
  */
@@ -36,7 +40,7 @@ public class VeiculoController {
 
 	@Autowired
 	VeiculoServiceImpl veiculoService;
-	
+
 	@Operation(summary = "Adicionar Veículo")
 	@PostMapping(produces = "application/json")
 	@JsonView(View.ControllerView.Public.class)
@@ -44,15 +48,7 @@ public class VeiculoController {
 		veiculoService.adicionar(veiculoDTO);
 		return "Veiculo Criado";
 	}
-	
-	@Operation(summary = "Listar Veículos")
-	@GetMapping(produces = "application/json")
-	@JsonView(View.ControllerView.Public.class)
-	public String listar(@RequestParam(value="nome", required = false) String nome) {
-		veiculoService.listar();
-		return "Veiculos Listados" + nome;
-	}
-	
+
 	@Operation(summary = "Editar Veículo")
 	@PutMapping(produces = "application/json")
 	@JsonView(View.ControllerView.Public.class)
@@ -60,13 +56,25 @@ public class VeiculoController {
 		veiculoService.editar(veiculoDTO);
 		return "Veiculo Editado";
 	}
-	
+
 	@Operation(summary = "Excluir Veículo")
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> excluir(@PathVariable(value="id") Integer id) {
+	public ResponseEntity<Void> excluir(@PathVariable(value = "id") Integer id) {
 		veiculoService.excluir(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
+	@Operation(summary = "Listar Últimos Veículos")
+	@GetMapping(produces = "application/json")
+	@JsonView(View.ControllerView.Public.class)
+	public Page<VeiculoDTO> listarVeiculos(
+			@RequestParam(value = "pageIndex", required = true) @Parameter(description = "Índice que deseja consultar", example = "0", required = true) int pageIndex,
+			@RequestParam(value = "size", required = true) @Parameter(description = "tamanho da página", example = "10", required = true) int size,
+			@RequestParam(value = "status", required = true) @Parameter(description = "status do veículo", example = "1", required = true) int status	
+			) {
+		Pageable pageable = PageRequest.of(pageIndex, size);
+
+		return veiculoService.listarVeiculos(pageable, status);
+	}
 
 }
