@@ -27,16 +27,16 @@ public class LoginServiceImpl implements LoginService {
 		Login login = new Login();
 		login.setNomeUsuario(loginDTO.getNomeUsuario());
 		login.setUsuario(modelMapper.map(usuarioDTO, Usuario.class));
-		login.setSenha(this.generatePassword(loginDTO.getSenha()));
+		login.setSenha(this.gerarHashSenha(loginDTO.getSenha()));
 
 		return modelMapper.map(loginRepository.save(login), LoginDTO.class);
 	}
 
-	public String generatePassword(String rawPassword) {
-		return passwordEncoder.encode(rawPassword);
+	public String gerarHashSenha(String senha) {
+		return passwordEncoder.encode(senha);
 	}
 
-	public boolean verifyPassword(String rawPassword, String encodedPassword) {
-		return passwordEncoder.matches(rawPassword, encodedPassword);
+	public boolean verificarHashSenha(String senha, String hashSenha) {
+		return passwordEncoder.matches(senha, hashSenha);
 	}
 }

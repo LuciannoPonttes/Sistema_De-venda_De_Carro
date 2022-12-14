@@ -11,25 +11,27 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import br.atos.xlo.controller.dto.base.View;
-import br.atos.xlo.dto.CategoriaDTO;
-import br.atos.xlo.services.CategoriaServiceImpl;
+import br.atos.xlo.dto.MarcaDTO;
+import br.atos.xlo.services.MarcaServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 
-@Api(tags = "categoria")
-
+@Api(tags = "marca")
 @RestController
-@RequestMapping("/api/categoria")
-public class CategoriaController {
+@RequestMapping("/api/marca")
+public class MarcaController {
 
 	@Autowired
-	CategoriaServiceImpl categoriaService;
+	MarcaServiceImpl marcaService;
 
-	@Operation(summary = "Listar Categorias")
+	@Operation(summary = "Listar Marcas de Veículos")
 	@GetMapping(produces = "application/json")
 	@JsonView(View.ControllerView.Public.class)
-	public List<CategoriaDTO> listar(@RequestParam(value = "Nome do categoria", required = false) String categoria) {
-		return categoriaService.listar();
+	public List<MarcaDTO> listar(
+			@RequestParam(value = "descricao", required = false) @Parameter(description = "Descrição da marca", example = "Audi", required = false) String descricao,
+			@RequestParam(value = "id", required = false) @Parameter(description = "ID da marca", example = "1", required = false) Long id
+	) {
+		return marcaService.listar();
 	}
-
 }

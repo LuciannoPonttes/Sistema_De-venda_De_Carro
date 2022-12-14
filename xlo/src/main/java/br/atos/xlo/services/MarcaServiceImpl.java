@@ -7,21 +7,21 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.atos.xlo.dto.CategoriaDTO;
-import br.atos.xlo.repository.CategoriaRepository;
+import br.atos.xlo.dto.MarcaDTO;
+import br.atos.xlo.repository.MarcaRepository;
 
 @Service
-public class CategoriaServiceImpl implements CategoriaService {
+public class MarcaServiceImpl implements MarcaService {
 
 	@Autowired
-	CategoriaRepository categoriaRepository;
+	MarcaRepository marcaRepository;
 
 	@Autowired
 	ModelMapper modelMapper;
 
 	@Override
-	public List<CategoriaDTO> listar() {
-		return categoriaRepository.listarCategorias().stream().map(cat -> modelMapper.map(cat, CategoriaDTO.class))
+	public List<MarcaDTO> listar() {
+		return marcaRepository.listarMarcas().stream().map(modelo -> modelMapper.map(modelo, MarcaDTO.class))
 				.collect(Collectors.toList());
 	}
 

@@ -7,5 +7,7 @@ public interface LoginService {
 
 	public LoginDTO adicionar(LoginDTO loginDTO, UsuarioDTO usuarioDTO);
 
-	public String generatePassword(String rawPassword);
+	public String gerarHashSenha(String senha);
+	
+	public boolean verificarHashSenha(String senha, String hashSenha);
 }
