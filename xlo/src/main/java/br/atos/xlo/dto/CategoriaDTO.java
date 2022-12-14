@@ -1,21 +1,24 @@
 package br.atos.xlo.dto;
 
-import br.atos.xlo.model.Categoria;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.atos.xlo.controller.dto.base.View;
+import br.atos.xlo.model.Veiculo;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public class CategoriaDTO {
-	
-	@Schema(example = "1")
+
+	@Schema(description = "Código da Categoria", example = "'1'", required = false)
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
 	private int codigoCategoria;
-	
-	@Schema(example = "Carro")
+
+	@Schema(description = "Descrição da Categoria", example = "Motos", required = false)
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
 	private String descricaoCategoria;
-	
-	public CategoriaDTO(int codigoCategoria, String descricaoCategoria) {
-		super();
-		this.codigoCategoria = codigoCategoria;
-		this.descricaoCategoria = descricaoCategoria;
-	}
+
+	@Schema(description = "Veículos da Categoria", required = false)
+	@JsonView(value = { View.ControllerView.Internal.class })
+	private Veiculo veiculo;
 
 	public int getCodigoCategoria() {
 		return codigoCategoria;
@@ -25,11 +28,6 @@ public class CategoriaDTO {
 		this.codigoCategoria = codigoCategoria;
 	}
 
-	public CategoriaDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
 	public String getDescricaoCategoria() {
 		return descricaoCategoria;
 	}
@@ -37,9 +35,13 @@ public class CategoriaDTO {
 	public void setDescricaoCategoria(String descricaoCategoria) {
 		this.descricaoCategoria = descricaoCategoria;
 	}
-	
-	public static CategoriaDTO from(Categoria categoria) {
-		return new CategoriaDTO(categoria.getCodigoCategoria(), categoria.getDescricaoCategoria());
+
+	public Veiculo getVeiculo() {
+		return veiculo;
 	}
-	
+
+	public void setVeiculo(Veiculo veiculo) {
+		this.veiculo = veiculo;
+	}
+
 }
