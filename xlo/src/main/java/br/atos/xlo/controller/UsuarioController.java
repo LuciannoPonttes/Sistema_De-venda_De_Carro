@@ -5,6 +5,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,8 +40,11 @@ public class UsuarioController {
 	@Operation(summary = "Listar Usuários")
 	@GetMapping(produces = "application/json")
 	@JsonView(View.ControllerView.Public.class)
-	public List<UsuarioDTO> listar(@RequestParam(value = "Nome do Usuário", required = false) String nome) {
-		return usuarioService.listar(nome);
+	public Page<UsuarioDTO> listar(@RequestParam(value = "pageIndex", required = true)
+	@Parameter(description = "page index you want to consult", example = "0", required = true) int pageIndex,
+	@RequestParam(value = "size", required = true)@Parameter(description = "page size you want", example = "10", required = true) int size) {
+		Pageable pageable = PageRequest.of(pageIndex, size);
+		return usuarioService.listarUsuarios(pageable);
 
 	}
 
@@ -61,7 +67,7 @@ public class UsuarioController {
 	@Operation(summary = "Excluir Usuário")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> excluir(
-			@PathVariable(value = "id") @Parameter(description = "ID do usuário para ser deletado", example = "1", required = true) Long id) {
+			@PathVariable(value = "id") @Parameter(description = "ID do usuário para ser deletado", example = "1", required = true) int id) {
 
 		usuarioService.excluir(id);
 
