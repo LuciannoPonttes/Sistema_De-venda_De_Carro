@@ -3,17 +3,18 @@ package br.atos.xlo.dto;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import br.atos.xlo.controller.dto.base.View;
+import br.atos.xlo.controller.dto.base.response.Body;
 import br.atos.xlo.model.VeiculoItem;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-public class VeiculoItemDTO {
+public class VeiculoItemDTO implements Body {
 
 	@Schema(example = "45")
-	@JsonView(value= { View.ControllerView.GET.class, View.ControllerView.Public.class })
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
 	private int codigoItem;
 
 	@Schema(example = "Ar condicionado")
-	@JsonView(value= { View.ControllerView.GET.class, View.ControllerView.Public.class })
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
 	private String descricaoItem;
 
 	@Schema(example = "1")

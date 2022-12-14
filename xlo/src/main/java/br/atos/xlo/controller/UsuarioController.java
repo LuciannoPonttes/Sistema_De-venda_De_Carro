@@ -1,7 +1,5 @@
 package br.atos.xlo.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import br.atos.xlo.controller.dto.base.View;
+import br.atos.xlo.controller.dto.base.response.ResponseNodePagination;
 import br.atos.xlo.dto.UsuarioDTO;
 import br.atos.xlo.services.UsuarioServiceImpl;
 import io.swagger.annotations.Api;
@@ -40,12 +39,13 @@ public class UsuarioController {
 	@Operation(summary = "Listar Usuários")
 	@GetMapping(produces = "application/json")
 	@JsonView(View.ControllerView.Public.class)
-	public Page<UsuarioDTO> listar(@RequestParam(value = "pageIndex", required = true)
-	@Parameter(description = "page index you want to consult", example = "0", required = true) int pageIndex,
-	@RequestParam(value = "size", required = true)@Parameter(description = "page size you want", example = "10", required = true) int size) {
+	public ResponseNodePagination<UsuarioDTO> listar(
+			@RequestParam(value = "pageIndex", required = true) @Parameter(description = "page index you want to consult", example = "0", required = true) int pageIndex,
+			@RequestParam(value = "size", required = true) @Parameter(description = "page size you want", example = "10", required = true) int size) {
 		Pageable pageable = PageRequest.of(pageIndex, size);
-		return usuarioService.listarUsuarios(pageable);
 
+		Page<UsuarioDTO> page = usuarioService.listarUsuarios(pageable);
+		return new ResponseNodePagination<>(HttpStatus.OK, page);
 	}
 
 	@Operation(summary = "Adicionar Usuário")

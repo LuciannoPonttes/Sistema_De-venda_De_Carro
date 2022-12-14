@@ -12,10 +12,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import br.atos.xlo.controller.dto.base.View;
+import br.atos.xlo.controller.dto.base.response.Body;
 import br.atos.xlo.enums.StatusUsuarioEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-public class UsuarioDTO {
+public class UsuarioDTO implements Body {
 
 	@Schema(description = "Código do Usuário", example = "1", required = false)
 	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.PUT.class,

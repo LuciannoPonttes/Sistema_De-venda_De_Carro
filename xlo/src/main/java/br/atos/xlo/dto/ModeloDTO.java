@@ -6,11 +6,11 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import br.atos.xlo.controller.dto.base.View;
+import br.atos.xlo.controller.dto.base.response.Body;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-public class ModeloDTO {
+public class ModeloDTO implements Body {
 
-	
 	@Schema(description = "Código do Modelo", example = "1", required = false)
 	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.PUT.class })
 	private int codigoModelo;
@@ -20,7 +20,6 @@ public class ModeloDTO {
 	@NotNull
 	@NotBlank
 	private String descricaoModelo;
-
 
 	public int getCodigoModelo() {
 		return codigoModelo;
@@ -38,6 +37,4 @@ public class ModeloDTO {
 		this.descricaoModelo = descricaoModelo;
 	}
 
-	
-		
 }

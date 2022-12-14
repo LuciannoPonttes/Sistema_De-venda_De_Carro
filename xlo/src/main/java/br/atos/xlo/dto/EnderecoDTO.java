@@ -7,9 +7,10 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import br.atos.xlo.controller.dto.base.View;
+import br.atos.xlo.controller.dto.base.response.Body;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-public class EnderecoDTO {
+public class EnderecoDTO implements Body {
 
 	@Schema(description = "Código do Endereço", example = "10", required = false)
 	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })

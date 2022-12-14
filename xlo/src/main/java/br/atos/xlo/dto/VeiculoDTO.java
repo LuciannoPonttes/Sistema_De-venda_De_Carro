@@ -11,11 +11,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import br.atos.xlo.controller.dto.base.View;
-import br.atos.xlo.model.Arquivo;
-import br.atos.xlo.model.VeiculoItem;
+import br.atos.xlo.controller.dto.base.response.Body;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-public class VeiculoDTO {
+public class VeiculoDTO implements Body {
 
 	@Schema(description = "Código do Veículo", example = "1", required = false)
 	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.PUT.class })
@@ -115,7 +114,7 @@ public class VeiculoDTO {
 	private int codUsuario;
 
 	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
-	private Set<VeiculoItemDTO> itemsVeiculo; 
+	private Set<VeiculoItemDTO> itemsVeiculo;
 
 	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
 	private Set<ArquivoDTO> arquivosVeiculo;
@@ -224,7 +223,6 @@ public class VeiculoDTO {
 		this.cidade = cidade;
 	}
 
-
 	public Set<VeiculoItemDTO> getItemsVeiculo() {
 		return itemsVeiculo;
 	}
@@ -272,8 +270,5 @@ public class VeiculoDTO {
 	public void setCodUsuario(int codUsuario) {
 		this.codUsuario = codUsuario;
 	}
-	
-	
-	
-	
+
 }
