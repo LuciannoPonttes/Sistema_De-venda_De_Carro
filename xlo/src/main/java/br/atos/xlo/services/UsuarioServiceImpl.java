@@ -5,12 +5,14 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.atos.xlo.dto.LoginDTO;
 import br.atos.xlo.dto.UsuarioDTO;
+import br.atos.xlo.enums.StatusUsuarioEnum;
 import br.atos.xlo.model.Endereco;
 import br.atos.xlo.model.Usuario;
 import br.atos.xlo.repository.EnderecoRepository;
@@ -62,7 +64,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public void excluir(int id) {
-		usuarioRepository.deleteById(id);
+	    Usuario usuario = usuarioRepository.findById(id).orElse(null);
+		if(usuario != null) {
+			usuario.setStatusUsuario(StatusUsuarioEnum.DESABILITADO);
+			usuarioRepository.save(usuario);
+		}
+		else {
+			throw new EmptyResultDataAccessException("mensagem", 1);
+		}
+
 	}
 
 	@Override
@@ -70,17 +80,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		usuarioDTO.setLogin(null);
 
-		Endereco end = modelMapper.map(usuarioDTO.getEndereco(), Endereco.class);
-
-		usuarioDTO.setEndereco(null);
-
+		usuarioDTO.getEndereco().setUsuario(usuarioDTO);
+		
 		Usuario usuario = usuarioRepository.save(modelMapper.map(usuarioDTO, Usuario.class));
-
-		end.setUsuario(usuario);
-
-		end = enderecoRepository.save(end);
-
-		usuario.setEndereco(end);
 
 		return modelMapper.map(usuario, UsuarioDTO.class);
 	}
