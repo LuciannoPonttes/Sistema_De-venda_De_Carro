@@ -1,0 +1,56 @@
+package br.atos.xlo.controller;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.atos.xlo.controller.dto.base.View;
+import br.atos.xlo.controller.request.RelatorioCustomQuery;
+import br.atos.xlo.dto.UsuarioDTO;
+import br.atos.xlo.dto.VeiculoDTO;
+import br.atos.xlo.services.RelatorioServiceImpl;
+import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+
+@Api(tags = "relatorio")
+@RestController
+@RequestMapping(value = "/api/relatorio")
+public class RelatorioController {
+
+	@Autowired
+	RelatorioServiceImpl relatorioService;
+
+	@Operation(summary = "Relatório de Usuários")
+	@GetMapping(value = "/usuarios", produces = "application/json")
+	@JsonView(View.ControllerView.Public.class)
+	public List<UsuarioDTO> geraRelatorioUsuarios(
+			@RequestParam(value = "situacao", required = false) @Parameter(description = "Situação do Usuário", example = "1", required = false) int situacao,
+			@RequestParam(value = "dataInicial", required = false) @Parameter(description = "Data Inicial", example = "1099-01-01T00:00:00.000Z", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dataInicial,
+			@RequestParam(value = "dataFinal", required = false) @Parameter(description = "Data Final", example = "1099-01-01T00:00:00.000Z", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dataFinal) {
+		RelatorioCustomQuery relatorioCustomQuery = new RelatorioCustomQuery(situacao, dataInicial, dataFinal);
+		return relatorioService.gerarRelatorioUsuarios(relatorioCustomQuery);
+	}
+
+	@Operation(summary = "Relatório de Veículos")
+	@GetMapping(value = "/veiculos", produces = "application/json")
+	@JsonView(View.ControllerView.Public.class)
+	public List<VeiculoDTO> geraRelatorioVeiculos(
+			@RequestParam(value = "categoria", required = false) @Parameter(description = "Categoria do Veículo", example = "1", required = false) int categoria,
+			@RequestParam(value = "situacao", required = false) @Parameter(description = "Situação do Veículo", example = "1", required = false) int situacao,
+			@RequestParam(value = "dataInicial", required = false) @Parameter(description = "Data Inicial", example = "1099-01-01T00:00:00.000Z", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dataInicial,
+			@RequestParam(value = "dataFinal", required = false) @Parameter(description = "Data Final", example = "1099-01-01T00:00:00.000Z", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dataFinal) {
+
+		RelatorioCustomQuery relatorioCustomQuery = new RelatorioCustomQuery(categoria, situacao, dataInicial,
+				dataFinal);
+		return relatorioService.gerarRelatorioVeiculos(relatorioCustomQuery);
+	}
+}
