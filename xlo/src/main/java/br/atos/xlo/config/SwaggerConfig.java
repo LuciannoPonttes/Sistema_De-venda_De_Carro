@@ -1,7 +1,5 @@
 package br.atos.xlo.config;
 
-import javax.swing.Spring;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
