@@ -1,9 +1,8 @@
 package br.atos.xlo.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -36,7 +35,7 @@ public class Usuario implements Serializable {
 
 	@ManyToMany
 	@JoinTable(name = "TB_ROLE_USUARIO", joinColumns = @JoinColumn(name = "NI_COD_USUARIO", referencedColumnName = "NI_COD_USUARIO"), inverseJoinColumns = @JoinColumn(name = "NI_COD_ROLE", referencedColumnName = "NI_COD_ROLE"))
-	private List<Role> roles = new ArrayList<>();
+	private Set<Role> roles = new HashSet<>();
 
 	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private Endereco endereco;
@@ -60,6 +59,22 @@ public class Usuario implements Serializable {
 
 	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private Login login;
+
+	public Usuario() {
+		super();
+	}
+
+	public Usuario(int codUsuario, String nome, String cpf, String email, StatusUsuarioEnum statusUsuario,
+			Date dtCadastro, Date dtAtualizacao) {
+		super();
+		this.codUsuario = codUsuario;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.email = email;
+		this.statusUsuario = statusUsuario;
+		this.dtCadastro = dtCadastro;
+		this.dtAtualizacao = dtAtualizacao;
+	}
 
 	public int getCodUsuario() {
 		return codUsuario;
@@ -125,11 +140,11 @@ public class Usuario implements Serializable {
 		this.endereco = endereco;
 	}
 
-	public List<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 

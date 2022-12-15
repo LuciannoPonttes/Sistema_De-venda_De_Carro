@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.atos.xlo.dto.LoginDTO;
@@ -64,12 +62,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public void excluir(int id) {
-	    Usuario usuario = usuarioRepository.findById(id).orElse(null);
-		if(usuario != null) {
+		Usuario usuario = usuarioRepository.findById(id).orElse(null);
+		if (usuario != null) {
 			usuario.setStatusUsuario(StatusUsuarioEnum.DESABILITADO);
 			usuarioRepository.save(usuario);
-		}
-		else {
+		} else {
 			throw new EmptyResultDataAccessException("mensagem", 1);
 		}
 
@@ -81,19 +78,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 		usuarioDTO.setLogin(null);
 
 		usuarioDTO.getEndereco().setUsuario(usuarioDTO);
-		
+
 		Usuario usuario = usuarioRepository.save(modelMapper.map(usuarioDTO, Usuario.class));
 
 		return modelMapper.map(usuario, UsuarioDTO.class);
-	}
-
-	@Override
-	public Page<UsuarioDTO> listarUsuarios(Pageable pageable) {
-
-		Page<Usuario> usuarios = usuarioRepository.listarUsuarios(pageable);
-
-		return usuarios.map(user -> modelMapper.map(user, UsuarioDTO.class));
-
 	}
 
 }
