@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class EnderecoDTO implements Body {
 
 	@Schema(description = "Código do Endereço", example = "10", required = false)
-	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class, View.ControllerView.PUT.class })
 	private int codEndereco;
 
 	@Size(min = 0, max = 8)
