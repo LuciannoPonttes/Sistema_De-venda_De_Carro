@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,17 +46,17 @@ public class VeiculoController {
 	@Operation(summary = "Adicionar Veículo")
 	@PostMapping(produces = "application/json")
 	@JsonView(View.ControllerView.Public.class)
-	public String adicionar(@RequestBody VeiculoDTO veiculoDTO) {
-		veiculoService.adicionar(veiculoDTO);
-		return "Veiculo Criado";
+	public VeiculoDTO adicionar(@RequestBody VeiculoDTO veiculoDTO) {
+		
+		return veiculoService.adicionar(veiculoDTO);
 	}
 
 	@Operation(summary = "Editar Veículo")
 	@PutMapping(produces = "application/json")
 	@JsonView(View.ControllerView.Public.class)
-	public String editar(@RequestBody VeiculoDTO veiculoDTO) {
-		veiculoService.editar(veiculoDTO);
-		return "Veiculo Editado";
+	public VeiculoDTO editar(@RequestBody VeiculoDTO veiculoDTO) {
+		return veiculoService.editar(veiculoDTO);
+
 	}
 
 	@Operation(summary = "Excluir Veículo")
@@ -72,7 +73,7 @@ public class VeiculoController {
 			@RequestParam(value = "pageIndex", required = true) @Parameter(description = "Índice que deseja consultar", example = "0", required = true) int pageIndex,
 			@RequestParam(value = "size", required = true) @Parameter(description = "tamanho da página", example = "10", required = true) int size,
 			@RequestParam(value = "status", required = true) @Parameter(description = "status do veículo", example = "1", required = true) int status) {
-		Pageable pageable = PageRequest.of(pageIndex, size);
+		Pageable pageable = PageRequest.of(pageIndex, size, Direction.DESC, "DTH_INCLUSAO");
 
 		Page<VeiculoDTO> page = veiculoService.listarVeiculos(pageable, status);
 		return new ResponseNodePagination<>(HttpStatus.OK, page);
