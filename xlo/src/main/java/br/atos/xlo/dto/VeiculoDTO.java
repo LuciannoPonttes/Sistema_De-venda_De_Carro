@@ -17,106 +17,106 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class VeiculoDTO implements Body {
 
 	@Schema(description = "Código do Veículo", example = "1", required = false)
-	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.PUT.class })
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.PUT.class, View.ControllerView.Public.class })
 	private int codVeiculo;
 
 	@Schema(description = "Descrição do Câmbio", example = "Automático", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class, View.ControllerView.Public.class })
 	@NotNull
 	@NotBlank
 	private String cambio;
 
 	@Schema(description = "Ano do Veículo", example = "1994", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class, View.ControllerView.Public.class })
 	@NotNull
 	@NotBlank
 	private int anoVeiculo;
 
 	@Schema(description = "Indicador de Garantia de Fabrica", example = "1", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class, View.ControllerView.Public.class })
 	@NotNull
 	@NotBlank
 	private int indicadorGarantiaFabrica;
 
 	@Schema(description = "Quilometragem", example = "123456", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class, View.ControllerView.Public.class })
 	@NotNull
 	@NotBlank
 	private int numQuilometragem;
 
 	@Schema(description = "Final da Placa", example = "9", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class, View.ControllerView.Public.class })
 	@NotNull
 	@NotBlank
 	private String placa;
 
 	@Schema(description = "Valor do Veículo", example = "19330.27", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class, View.ControllerView.Public.class })
 	@NotNull
 	@NotBlank
 	private BigDecimal valor;
 
 	@Schema(description = "Status do Veículo", example = "1", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class, View.ControllerView.Public.class })
 	@NotNull
 	@NotBlank
 	private int statusVeiculo;
 
-	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class, View.ControllerView.Public.class })
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 	private Date dataInclusao;
 
-	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class, View.ControllerView.Public.class })
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 	private Date dataAtualizacao;
 
 	@Schema(description = "Data da Venda", example = "1099-01-01T00:00:00.000Z", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class, View.ControllerView.Public.class })
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 	@NotNull
 	@NotBlank
 	private Date dataVenda;
 
 	@Schema(description = "Estado", example = "SP", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class, View.ControllerView.Public.class })
 	@NotNull
 	@NotBlank
 	private String estado;
 
 	@Schema(description = "Cidade", example = "Osasco", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class, View.ControllerView.Public.class })
 	@NotNull
 	@NotBlank
 	private String cidade;
 
 	@Schema(description = "Código da Categoria", example = "1", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class, View.ControllerView.Public.class })
 	@NotNull
 	@NotBlank
 	private int codigoCategoria;
 
 	@Schema(description = "Código da Marca", example = "1", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class, View.ControllerView.Public.class })
 	@NotNull
 	@NotBlank
 	private int codigoMarca;
 
 	@Schema(description = "Código do Modelo", example = "1", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class, View.ControllerView.Public.class })
 	@NotNull
 	@NotBlank
 	private int codigoModelo;
 
 	@Schema(description = "Código do Modelo", example = "1", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class, View.ControllerView.Public.class })
 	@NotNull
 	@NotBlank
 	private int codUsuario;
 
-	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class, View.ControllerView.Public.class })
 	private Set<VeiculoItemDTO> itemsVeiculo;
 
-	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class, View.ControllerView.Public.class })
 	private Set<ArquivoDTO> arquivosVeiculo;
 
 	public int getCodVeiculo() {

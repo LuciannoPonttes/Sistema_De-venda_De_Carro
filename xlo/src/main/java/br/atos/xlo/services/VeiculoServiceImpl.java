@@ -7,11 +7,13 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.atos.xlo.dto.VeiculoDTO;
+import br.atos.xlo.enums.StatusUsuarioEnum;
 import br.atos.xlo.model.Arquivo;
 import br.atos.xlo.model.Veiculo;
 import br.atos.xlo.model.VeiculoItem;
@@ -38,9 +40,7 @@ public class VeiculoServiceImpl implements VeiculoService{
 	@Override
 	public VeiculoDTO adicionar(VeiculoDTO veiculoDTO) {
 		
-		veiculoDTO.setItemsVeiculo(null);
-		veiculoDTO.setArquivosVeiculo(null);
-		
+	
         VeiculoItem itens = modelMapper.map(veiculoDTO.getItemsVeiculo(), VeiculoItem.class);        
         Arquivo arquivos = modelMapper.map(veiculoDTO.getArquivosVeiculo(), Arquivo.class);
         
@@ -64,13 +64,19 @@ public class VeiculoServiceImpl implements VeiculoService{
 
 	@Override
 	public void excluir(Integer id) {
-		veiculoRepository.deleteById(id);
+		Veiculo veiculo = veiculoRepository.findById(id).orElse(null);
+		
+		if(veiculo == null ){
+			throw new EmptyResultDataAccessException("Id de veículo não encontrado" + id , 1);
+		}else {
+			veiculo.setStatusVeiculo(StatusUsuarioEnum.DESABILITADO.getValue());
+			veiculoRepository.save(veiculo);
+		}
+		
 	}
 
 	@Override
 	public VeiculoDTO editar(VeiculoDTO veiculoDTO) {
-		veiculoDTO.setItemsVeiculo(null);
-		veiculoDTO.setArquivosVeiculo(null);
 		
 		veiculoDTO.setDataAtualizacao(new Date());
 		
@@ -92,7 +98,6 @@ public class VeiculoServiceImpl implements VeiculoService{
 	public Page<VeiculoDTO> listarVeiculos(Pageable pageable, Integer status) {
 		
 		Page<Veiculo> veiculos = veiculoRepository.listarVeiculosPaginados(status, pageable);
-
 		return veiculos.map(user -> modelMapper.map(user, VeiculoDTO.class)); 
 	}
 	
