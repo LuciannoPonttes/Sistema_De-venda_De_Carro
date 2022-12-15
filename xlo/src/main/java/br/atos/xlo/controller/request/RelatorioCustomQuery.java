@@ -4,15 +4,15 @@ import java.util.Date;
 
 public class RelatorioCustomQuery {
 
-	private int categoria;
+	private Integer categoria;
 
-	private int situacao;
+	private Integer situacao;
 
 	private Date dataInicial;
 
 	private Date dataFinal;
 
-	public RelatorioCustomQuery(int categoria, int situacao, Date dataInicial, Date dataFinal) {
+	public RelatorioCustomQuery(Integer categoria, Integer situacao, Date dataInicial, Date dataFinal) {
 		super();
 		this.categoria = categoria;
 		this.situacao = situacao;
@@ -20,26 +20,26 @@ public class RelatorioCustomQuery {
 		this.dataFinal = dataFinal;
 	}
 
-	public RelatorioCustomQuery(int situacao, Date dataInicial, Date dataFinal) {
+	public RelatorioCustomQuery(Integer situacao, Date dataInicial, Date dataFinal) {
 		super();
 		this.situacao = situacao;
 		this.dataInicial = dataInicial;
 		this.dataFinal = dataFinal;
 	}
 
-	public int getCategoria() {
+	public Integer getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(int categoria) {
+	public void setCategoria(Integer categoria) {
 		this.categoria = categoria;
 	}
 
-	public int getSituacao() {
+	public Integer getSituacao() {
 		return situacao;
 	}
 
-	public void setSituacao(int situacao) {
+	public void setSituacao(Integer situacao) {
 		this.situacao = situacao;
 	}
 
