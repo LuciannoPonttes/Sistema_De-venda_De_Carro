@@ -6,5 +6,5 @@ import br.atos.xlo.dto.MarcaDTO;
 
 public interface MarcaService {
 
-	List<MarcaDTO> listar();
+	List<MarcaDTO> listar(String descricao);
 }

@@ -6,5 +6,5 @@ import br.atos.xlo.dto.CategoriaDTO;
 
 public interface CategoriaService {
 	
-	public List<CategoriaDTO> listar();
+	public List<CategoriaDTO> listar(String descricao);
 }

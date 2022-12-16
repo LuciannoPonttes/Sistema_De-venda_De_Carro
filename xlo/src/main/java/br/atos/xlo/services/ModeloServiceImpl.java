@@ -20,8 +20,8 @@ public class ModeloServiceImpl implements ModeloService {
 	ModelMapper modelMapper;
 
 	@Override
-	public List<ModeloDTO> listar() {
-		return modeloRepository.listarModelos().stream().map(modelo -> modelMapper.map(modelo, ModeloDTO.class))
+	public List<ModeloDTO> listar(String descricao) {
+		return modeloRepository.listarModelos(descricao).stream().map(modelo -> modelMapper.map(modelo, ModeloDTO.class))
 				.collect(Collectors.toList());
 	}
 

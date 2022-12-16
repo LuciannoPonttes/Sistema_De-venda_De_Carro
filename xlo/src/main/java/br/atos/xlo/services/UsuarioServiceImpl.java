@@ -71,7 +71,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 			usuario.setStatusUsuario(StatusUsuarioEnum.DESABILITADO);
 			usuarioRepository.save(usuario);
 		} else {
-			throw new EmptyResultDataAccessException("mensagem", 1);
+			throw new EmptyResultDataAccessException("ID do usuário não encontrado: " + id, 1);
 		}
 
 	}

@@ -12,12 +12,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.atos.xlo.dto.UsuarioDTO;
 import br.atos.xlo.dto.VeiculoDTO;
 import br.atos.xlo.enums.StatusVeiculoEnum;
 import br.atos.xlo.model.Arquivo;
+import br.atos.xlo.model.Usuario;
 import br.atos.xlo.model.Veiculo;
 import br.atos.xlo.model.VeiculoItem;
 import br.atos.xlo.repository.ArquivoRepository;
+import br.atos.xlo.repository.UsuarioRepository;
 import br.atos.xlo.repository.VeiculoItemRepository;
 import br.atos.xlo.repository.VeiculoRepository;
 
@@ -31,6 +34,9 @@ public class VeiculoServiceImpl implements VeiculoService {
 	VeiculoItemRepository veiculoItemRepository;
 
 	@Autowired
+	UsuarioRepository usuarioRepository;
+
+	@Autowired
 	ArquivoRepository arquivoRepository;
 
 	@Autowired
@@ -38,6 +44,12 @@ public class VeiculoServiceImpl implements VeiculoService {
 
 	@Override
 	public VeiculoDTO adicionar(VeiculoDTO veiculoDTO) {
+
+		Usuario usuario = usuarioRepository.findById(veiculoDTO.getCodUsuario()).orElse(null);
+
+		if (usuario == null) {
+			throw new EmptyResultDataAccessException("ID do usuário não encontrado: " + veiculoDTO.getCodUsuario(), 1);
+		}
 
 		List<VeiculoItem> itens = veiculoDTO.getItemsVeiculo().stream()
 				.map(item -> modelMapper.map(item, VeiculoItem.class)).collect(Collectors.toList());
@@ -47,13 +59,10 @@ public class VeiculoServiceImpl implements VeiculoService {
 
 		veiculoDTO.setStatusVeiculo(StatusVeiculoEnum.ATIVO);
 
-		// TODO - salvar de acordo com o que vier da api
-		veiculoDTO.setCategoria(null);
-		veiculoDTO.setModelo(null);
-		veiculoDTO.setMarca(null);
 		veiculoDTO.setArquivosVeiculo(null);
 		veiculoDTO.setItemsVeiculo(null);
 
+		veiculoDTO.setUsuario(modelMapper.map(usuario, UsuarioDTO.class));
 		Veiculo veiculo = veiculoRepository.save(modelMapper.map(veiculoDTO, Veiculo.class));
 
 		itens.stream().forEach(item -> item.setVeiculos(Arrays.asList(veiculo)));
@@ -77,7 +86,7 @@ public class VeiculoServiceImpl implements VeiculoService {
 		Veiculo veiculo = veiculoRepository.findById(id).orElse(null);
 
 		if (veiculo == null) {
-			throw new EmptyResultDataAccessException("Id de veículo não encontrado" + id, 1);
+			throw new EmptyResultDataAccessException("Id de veículo não encontrado: " + id, 1);
 		} else {
 			veiculo.setStatusVeiculo(StatusVeiculoEnum.INATIVO);
 			veiculoRepository.save(veiculo);

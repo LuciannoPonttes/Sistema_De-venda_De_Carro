@@ -20,8 +20,8 @@ public class CategoriaServiceImpl implements CategoriaService {
 	ModelMapper modelMapper;
 
 	@Override
-	public List<CategoriaDTO> listar() {
-		return categoriaRepository.listarCategorias().stream().map(cat -> modelMapper.map(cat, CategoriaDTO.class))
+	public List<CategoriaDTO> listar(String descricao) {
+		return categoriaRepository.listarCategorias(descricao).stream().map(cat -> modelMapper.map(cat, CategoriaDTO.class))
 				.collect(Collectors.toList());
 	}
 

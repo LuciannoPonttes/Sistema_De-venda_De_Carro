@@ -20,7 +20,7 @@ public class Arquivo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NI_COD_ARQUIVO")
 	private int codArquivo;
 	@Column(name = "VC_END_ARQUIVO")

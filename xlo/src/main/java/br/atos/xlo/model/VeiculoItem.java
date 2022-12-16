@@ -19,7 +19,7 @@ public class VeiculoItem implements Serializable {
 	private static final long serialVersionUID = 7321408371181501785L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NI_COD_ITEM")
 	private int codigoItem;
 
