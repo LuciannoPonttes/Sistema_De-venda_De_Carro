@@ -1,5 +1,7 @@
 package br.atos.xlo.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -46,15 +48,17 @@ public class VeiculoController {
 	@Operation(summary = "Adicionar Veículo")
 	@PostMapping(produces = "application/json")
 	@JsonView(View.ControllerView.Public.class)
-	public VeiculoDTO adicionar(@RequestBody VeiculoDTO veiculoDTO) {
-		
+	public VeiculoDTO adicionar(@JsonView(value = {
+			View.ControllerView.POST.class }) @RequestBody(required = true) @Valid VeiculoDTO veiculoDTO) {
+
 		return veiculoService.adicionar(veiculoDTO);
 	}
 
 	@Operation(summary = "Editar Veículo")
 	@PutMapping(produces = "application/json")
 	@JsonView(View.ControllerView.Public.class)
-	public VeiculoDTO editar(@RequestBody VeiculoDTO veiculoDTO) {
+	public VeiculoDTO editar(@JsonView(value = {
+			View.ControllerView.PUT.class }) @RequestBody(required = true) @Valid VeiculoDTO veiculoDTO) {
 		return veiculoService.editar(veiculoDTO);
 
 	}
@@ -70,10 +74,10 @@ public class VeiculoController {
 	@GetMapping(produces = "application/json")
 	@JsonView(View.ControllerView.Public.class)
 	public ResponseNodePagination<VeiculoDTO> listarVeiculos(
-			@RequestParam(value = "pageIndex", required = true) @Parameter(description = "Índice que deseja consultar", example = "0", required = true) int pageIndex,
-			@RequestParam(value = "size", required = true) @Parameter(description = "tamanho da página", example = "10", required = true) int size,
-			@RequestParam(value = "status", required = true) @Parameter(description = "status do veículo", example = "1", required = true) int status) {
-		Pageable pageable = PageRequest.of(pageIndex, size, Direction.DESC, "DTH_INCLUSAO");
+			@RequestParam(value = "indice", required = true, defaultValue = "0") @Parameter(description = "Índice da página", required = true) int indice,
+			@RequestParam(value = "tamPagina", required = true, defaultValue = "10") @Parameter(description = "Tamanho da página", required = true) int tamPagina,
+			@RequestParam(value = "status", required = false) @Parameter(description = "status do veículo", example = "1", required = false) Integer status) {
+		Pageable pageable = PageRequest.of(indice, tamPagina, Direction.DESC, "DTH_INCLUSAO");
 
 		Page<VeiculoDTO> page = veiculoService.listarVeiculos(pageable, status);
 		return new ResponseNodePagination<>(HttpStatus.OK, page);

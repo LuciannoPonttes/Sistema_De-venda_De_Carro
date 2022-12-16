@@ -1,7 +1,5 @@
 package br.atos.xlo.services;
 
-import java.util.List;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,13 +11,18 @@ import br.atos.xlo.dto.UsuarioDTO;
 import br.atos.xlo.dto.VeiculoDTO;
 import br.atos.xlo.enums.StatusUsuarioEnum;
 import br.atos.xlo.model.Usuario;
+import br.atos.xlo.model.Veiculo;
 import br.atos.xlo.repository.UsuarioRepository;
+import br.atos.xlo.repository.VeiculoRepository;
 
 @Service
 public class RelatorioServiceImpl implements RelatorioService {
 
 	@Autowired
 	UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	VeiculoRepository veiculoRepository;
 
 	@Autowired
 	ModelMapper modelMapper;
@@ -33,8 +36,10 @@ public class RelatorioServiceImpl implements RelatorioService {
 	}
 
 	@Override
-	public List<VeiculoDTO> gerarRelatorioVeiculos(RelatorioCustomQuery relatorioCustomQuery) {
+	public Page<VeiculoDTO> gerarRelatorioVeiculos(RelatorioCustomQuery relatorioCustomQuery, Pageable pageable) {
 
-		return null;
+		Page<Veiculo> veiculos = veiculoRepository.relatorioVeiculos(pageable);
+		
+		return veiculos.map(veiculo -> modelMapper.map(veiculo, VeiculoDTO.class));
 	}
 }

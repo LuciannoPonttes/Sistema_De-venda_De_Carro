@@ -2,9 +2,9 @@ package br.atos.xlo.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,6 +20,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+
+import br.atos.xlo.enums.StatusVeiculoEnum;
 
 @Entity
 @Table(name = "TB_VEICULO")
@@ -50,8 +52,8 @@ public class Veiculo implements Serializable {
 	@Column(name = "ND_VALOR")
 	private BigDecimal valor;
 
-	@Column(name = "NI_STATUS_VEICULO")
-	private int statusVeiculo;
+	@Column(name = "NI_STATUS_VEICULO", columnDefinition = "integer default 1")
+	private StatusVeiculoEnum statusVeiculo;
 
 	@Column(name = "DTH_INCLUSAO", nullable = false, updatable = false)
 	@CreationTimestamp
@@ -87,14 +89,43 @@ public class Veiculo implements Serializable {
 
 	@ManyToMany
 	@JoinTable(name = "TB_VEICULO_ITEM_VEIC", joinColumns = @JoinColumn(name = "NI_COD_VEICULO", referencedColumnName = "NI_COD_VEICULO"), inverseJoinColumns = @JoinColumn(name = "NI_COD_ITEM", referencedColumnName = "NI_COD_ITEM"))
-	private List<VeiculoItem> itemsVeiculo = new ArrayList<>();
+	private Set<VeiculoItem> itemsVeiculo = new HashSet<>();
 
 	@ManyToMany
 	@JoinTable(name = "TB_VEICULO_ARQUIVO", joinColumns = @JoinColumn(name = "NI_COD_VEICULO", referencedColumnName = "NI_COD_VEICULO"), inverseJoinColumns = @JoinColumn(name = "NI_COD_ARQUIVO", referencedColumnName = "NI_COD_ARQUIVO"))
-	private List<Arquivo> arquivosVeiculo = new ArrayList<>();
+	private Set<Arquivo> arquivosVeiculo = new HashSet<>();
 
 	public Veiculo() {
 		super();
+	}
+
+	public Veiculo(int codVeiculo) {
+		super();
+		this.codVeiculo = codVeiculo;
+	}
+
+	public Veiculo(int codVeiculo, String cambio, int anoVeiculo, int indicadorGarantiaFabrica, int numQuilometragem,
+			String placa, BigDecimal valor, StatusVeiculoEnum statusVeiculo, Date dataInclusao, Date dataVenda,
+			String estado, String cidade, Categoria categoria, Marca marca, Modelo modelo, Usuario usuario,
+			Set<VeiculoItem> itemsVeiculo) {
+		super();
+		this.codVeiculo = codVeiculo;
+		this.cambio = cambio;
+		this.anoVeiculo = anoVeiculo;
+		this.indicadorGarantiaFabrica = indicadorGarantiaFabrica;
+		this.numQuilometragem = numQuilometragem;
+		this.placa = placa;
+		this.valor = valor;
+		this.statusVeiculo = statusVeiculo;
+		this.dataInclusao = dataInclusao;
+		this.dataVenda = dataVenda;
+		this.estado = estado;
+		this.cidade = cidade;
+		this.categoria = categoria;
+		this.marca = marca;
+		this.modelo = modelo;
+		this.usuario = usuario;
+		this.itemsVeiculo = itemsVeiculo;
 	}
 
 	public int getCodVeiculo() {
@@ -153,11 +184,11 @@ public class Veiculo implements Serializable {
 		this.valor = valor;
 	}
 
-	public int getStatusVeiculo() {
+	public StatusVeiculoEnum getStatusVeiculo() {
 		return statusVeiculo;
 	}
 
-	public void setStatusVeiculo(int statusVeiculo) {
+	public void setStatusVeiculo(StatusVeiculoEnum statusVeiculo) {
 		this.statusVeiculo = statusVeiculo;
 	}
 
@@ -185,19 +216,19 @@ public class Veiculo implements Serializable {
 		this.dataVenda = dataVenda;
 	}
 
-	public List<VeiculoItem> getItemsVeiculo() {
+	public Set<VeiculoItem> getItemsVeiculo() {
 		return itemsVeiculo;
 	}
 
-	public void setItemsVeiculo(List<VeiculoItem> itemsVeiculo) {
+	public void setItemsVeiculo(Set<VeiculoItem> itemsVeiculo) {
 		this.itemsVeiculo = itemsVeiculo;
 	}
 
-	public List<Arquivo> getArquivosVeiculo() {
+	public Set<Arquivo> getArquivosVeiculo() {
 		return arquivosVeiculo;
 	}
 
-	public void setArquivosVeiculo(List<Arquivo> arquivosVeiculo) {
+	public void setArquivosVeiculo(Set<Arquivo> arquivosVeiculo) {
 		this.arquivosVeiculo = arquivosVeiculo;
 	}
 

@@ -1,11 +1,14 @@
 package br.atos.xlo.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.atos.xlo.dto.LoginDTO;
@@ -41,6 +44,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		usuarioDTO.setEndereco(null);
 
+		usuarioDTO.setStatusUsuario(StatusUsuarioEnum.PENDENTE);
 		Usuario usuario = usuarioRepository.save(modelMapper.map(usuarioDTO, Usuario.class));
 
 		end.setUsuario(usuario);
@@ -78,10 +82,20 @@ public class UsuarioServiceImpl implements UsuarioService {
 		usuarioDTO.setLogin(null);
 
 		usuarioDTO.getEndereco().setUsuario(usuarioDTO);
+		usuarioDTO.setDtAtualizacao(new Date());
 
 		Usuario usuario = usuarioRepository.save(modelMapper.map(usuarioDTO, Usuario.class));
 
 		return modelMapper.map(usuario, UsuarioDTO.class);
+	}
+
+	@Override
+	public Page<UsuarioDTO> listarUsuarios(Pageable pageable) {
+
+		Page<Usuario> usuarios = usuarioRepository.listarUsuarios(pageable);
+
+		return usuarios.map(user -> modelMapper.map(user, UsuarioDTO.class));
+
 	}
 
 }

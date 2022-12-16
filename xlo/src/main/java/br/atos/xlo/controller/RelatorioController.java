@@ -1,7 +1,6 @@
 package br.atos.xlo.controller;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -55,16 +54,19 @@ public class RelatorioController {
 	@Operation(summary = "Relatório de Veículos")
 	@GetMapping(value = "/veiculos", produces = "application/json")
 	@JsonView(View.ControllerView.Public.class)
-	public List<VeiculoDTO> geraRelatorioVeiculos(
+	public ResponseNodePagination<VeiculoDTO> geraRelatorioVeiculos(
 			@RequestParam(value = "indice", required = true, defaultValue = "0") @Parameter(description = "Índice da página", required = true) int indice,
 			@RequestParam(value = "tamPagina", required = true, defaultValue = "10") @Parameter(description = "Tamanho da página", required = true) int tamPagina,
-			@RequestParam(value = "categoria", required = false) @Parameter(description = "Categoria do Veículo", example = "1", required = false) int categoria,
-			@RequestParam(value = "situacao", required = false) @Parameter(description = "Situação do Veículo", example = "1", required = false) int situacao,
+			@RequestParam(value = "categoria", required = false) @Parameter(description = "Categoria do Veículo", example = "1", required = false) Integer categoria,
+			@RequestParam(value = "situacao", required = false) @Parameter(description = "Situação do Usuário", required = false) Integer situacao,
 			@RequestParam(value = "dataInicial", required = false) @Parameter(description = "Data Inicial", example = "1099-01-01T00:00:00.000Z", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dataInicial,
 			@RequestParam(value = "dataFinal", required = false) @Parameter(description = "Data Final", example = "1099-01-01T00:00:00.000Z", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dataFinal) {
 
+		Pageable pageable = PageRequest.of(indice, tamPagina);
 		RelatorioCustomQuery relatorioCustomQuery = new RelatorioCustomQuery(categoria, situacao, dataInicial,
 				dataFinal);
-		return relatorioService.gerarRelatorioVeiculos(relatorioCustomQuery);
+		Page<VeiculoDTO> page = relatorioService.gerarRelatorioVeiculos(relatorioCustomQuery, pageable);
+
+		return new ResponseNodePagination<>(HttpStatus.OK, page);
 	}
 }

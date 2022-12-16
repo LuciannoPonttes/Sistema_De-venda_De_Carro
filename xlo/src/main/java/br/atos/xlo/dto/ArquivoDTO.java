@@ -1,42 +1,37 @@
 package br.atos.xlo.dto;
 
-import br.atos.xlo.model.Arquivo;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.atos.xlo.controller.dto.base.View;
 
 public class ArquivoDTO {
-	
-	private int codigoArquivo;
 
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.PUT.class,
+			View.ControllerView.Public.class })
+	private int codArquivo;
+
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.POST.class, View.ControllerView.PUT.class,
+			View.ControllerView.Public.class })
 	private String endArquivo;
-	
-	public ArquivoDTO(int codigoArquivo, String descricaoArquivo) {
-		super();
-		this.codigoArquivo = codigoArquivo;
-		this.endArquivo = descricaoArquivo;
-	}
-
-	public int getCodigoArquivo() {
-		return codigoArquivo;
-	}
-
-	public void setCodigoArquivo(int codigoArquivo) {
-		this.codigoArquivo = codigoArquivo;
-	}
 
 	public ArquivoDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public String getDescricaoArquivo() {
+	public int getCodArquivo() {
+		return codArquivo;
+	}
+
+	public void setCodArquivo(int codArquivo) {
+		this.codArquivo = codArquivo;
+	}
+
+	public String getEndArquivo() {
 		return endArquivo;
 	}
 
-	public void setDescricaoArquivo(String descricaoArquivo) {
-		this.endArquivo = descricaoArquivo;
+	public void setEndArquivo(String endArquivo) {
+		this.endArquivo = endArquivo;
 	}
-	
-	public static ArquivoDTO from(Arquivo arquivo) {
-		return new ArquivoDTO(arquivo.getCodArquivo(), arquivo.getEndArquivo());
-	}
-	
+
 }

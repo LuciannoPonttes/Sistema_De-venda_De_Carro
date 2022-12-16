@@ -12,11 +12,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class MarcaDTO implements Body {
 
 	@Schema(description = "Código da Marca", example = "1", required = false)
-	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.PUT.class })
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.POST.class, View.ControllerView.PUT.class,
+			View.ControllerView.Public.class })
 	private int codigoMarca;
 
 	@Schema(description = "Descrição da Marca", example = "GM - Chevrolet", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class,
+			View.ControllerView.Public.class })
 	@NotNull
 	@NotBlank
 	private String descricaoMarca;
