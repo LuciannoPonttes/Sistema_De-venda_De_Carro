@@ -10,11 +10,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class CategoriaDTO implements Body {
 
 	@Schema(description = "Código da Categoria", example = "'1'", required = false)
-	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.POST.class, View.ControllerView.PUT.class,
+			View.ControllerView.Public.class })
 	private int codigoCategoria;
 
 	@Schema(description = "Descrição da Categoria", example = "Motos", required = false)
-	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
+	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.POST.class, View.ControllerView.PUT.class,
+			View.ControllerView.Public.class })
 	private String descricaoCategoria;
 
 	@Schema(description = "Veículos da Categoria", required = false)

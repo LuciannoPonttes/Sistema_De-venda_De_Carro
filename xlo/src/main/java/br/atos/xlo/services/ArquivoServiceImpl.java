@@ -12,11 +12,11 @@ import br.atos.xlo.model.Arquivo;
 import br.atos.xlo.repository.ArquivoRepository;
 
 @Service
-public class ArquivoServiceImpl implements ArquivoService{
-	
+public class ArquivoServiceImpl implements ArquivoService {
+
 	@Autowired
 	ArquivoRepository arquivoRepository;
-	
+
 	@Autowired
 	ModelMapper modelMapper;
 
@@ -28,9 +28,7 @@ public class ArquivoServiceImpl implements ArquivoService{
 
 	@Override
 	public List<ArquivoDTO> listar() {
-		return arquivoRepository.findAll()
-				.stream()
-				.map(ArquivoDTO::from)
+		return arquivoRepository.findAll().stream().map(arq -> modelMapper.map(arq, ArquivoDTO.class))
 				.collect(Collectors.toList());
 	}
 

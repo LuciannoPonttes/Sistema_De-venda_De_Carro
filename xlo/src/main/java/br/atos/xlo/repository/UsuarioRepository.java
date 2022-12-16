@@ -12,6 +12,10 @@ import br.atos.xlo.enums.StatusUsuarioEnum;
 import br.atos.xlo.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+	
+	@Query(value = "SELECT new Usuario(u.codUsuario, u.nome, u.cpf, u.email, u.statusUsuario, u.dtCadastro, u.dtAtualizacao)"
+			+ " FROM Usuario u")
+	Page<Usuario> listarUsuarios(Pageable pageable);
 
 	@Query(value = "SELECT new Usuario(u.codUsuario, u.nome, u.cpf, u.email, u.statusUsuario, u.dtCadastro, u.dtAtualizacao)"
 			+ " FROM Usuario u WHERE (u.statusUsuario = :status OR :status IS NULL)"

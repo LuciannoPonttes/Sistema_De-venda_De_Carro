@@ -49,7 +49,7 @@ public class Usuario implements Serializable {
 	private String cpf;
 	@Column(name = "VC_EMAIL")
 	private String email;
-	@Column(name = "NI_STATUS")
+	@Column(name = "NI_STATUS", columnDefinition = "integer default 2")
 	private StatusUsuarioEnum statusUsuario;
 	@Column(name = "DTH_CADASTRO", nullable = false, updatable = false)
 	@CreationTimestamp
