@@ -2,6 +2,7 @@ package br.atos.xlo.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +19,7 @@ public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NI_COD_ENDERECO")
 	private int codEndereco;
 	@Column(name = "VC_CEP")
@@ -36,8 +37,8 @@ public class Endereco implements Serializable {
 	@Column(name = "VC_COMPLEMENTO")
 	private String complemento;
 
-	@OneToOne
-	@JoinColumn(name = "NI_COD_USUARIO")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "NI_COD_USUARIO", referencedColumnName = "NI_COD_USUARIO")
 	private Usuario usuario;
 
 	public int getCodEndereco() {

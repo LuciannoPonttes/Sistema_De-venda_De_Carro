@@ -15,6 +15,7 @@ import br.atos.xlo.dto.CategoriaDTO;
 import br.atos.xlo.services.CategoriaServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 
 @Api(tags = "categoria")
 
@@ -28,8 +29,9 @@ public class CategoriaController {
 	@Operation(summary = "Listar Categorias")
 	@GetMapping(produces = "application/json")
 	@JsonView(View.ControllerView.Public.class)
-	public List<CategoriaDTO> listar(@RequestParam(value = "Nome do categoria", required = false) String categoria) {
-		return categoriaService.listar();
+	public List<CategoriaDTO> listar(
+			@RequestParam(value = "descricao", required = false) @Parameter(description = "Descrição da categoria", required = false) String descricao) {
+		return categoriaService.listar(descricao);
 	}
 
 }

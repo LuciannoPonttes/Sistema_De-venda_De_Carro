@@ -4,24 +4,20 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import br.atos.xlo.controller.dto.base.View;
 import br.atos.xlo.controller.dto.base.response.Body;
-import br.atos.xlo.model.Veiculo;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public class CategoriaDTO implements Body {
 
-	@Schema(description = "Código da Categoria", example = "'1'", required = false)
+	@Schema(description = "Código da Categoria", example = "1", required = false)
 	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.POST.class, View.ControllerView.PUT.class,
 			View.ControllerView.Public.class })
 	private int codigoCategoria;
 
-	@Schema(description = "Descrição da Categoria", example = "Motos", required = false)
+	@Schema(description = "Descrição da Categoria", example = "Carros e Utilitários", required = false)
 	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.POST.class, View.ControllerView.PUT.class,
 			View.ControllerView.Public.class })
 	private String descricaoCategoria;
 
-	@Schema(description = "Veículos da Categoria", required = false)
-	@JsonView(value = { View.ControllerView.Internal.class })
-	private Veiculo veiculo;
 
 	public int getCodigoCategoria() {
 		return codigoCategoria;
@@ -37,14 +33,6 @@ public class CategoriaDTO implements Body {
 
 	public void setDescricaoCategoria(String descricaoCategoria) {
 		this.descricaoCategoria = descricaoCategoria;
-	}
-
-	public Veiculo getVeiculo() {
-		return veiculo;
-	}
-
-	public void setVeiculo(Veiculo veiculo) {
-		this.veiculo = veiculo;
 	}
 
 }

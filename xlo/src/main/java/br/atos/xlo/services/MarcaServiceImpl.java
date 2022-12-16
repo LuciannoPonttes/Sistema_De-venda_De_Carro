@@ -20,8 +20,8 @@ public class MarcaServiceImpl implements MarcaService {
 	ModelMapper modelMapper;
 
 	@Override
-	public List<MarcaDTO> listar() {
-		return marcaRepository.listarMarcas().stream().map(modelo -> modelMapper.map(modelo, MarcaDTO.class))
+	public List<MarcaDTO> listar(String descricao) {
+		return marcaRepository.listarMarcas(descricao).stream().map(modelo -> modelMapper.map(modelo, MarcaDTO.class))
 				.collect(Collectors.toList());
 	}
 

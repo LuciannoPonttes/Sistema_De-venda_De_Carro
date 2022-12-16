@@ -30,7 +30,7 @@ public class Veiculo implements Serializable {
 	private static final long serialVersionUID = -6714671593349761910L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NI_COD_VEICULO")
 	private int codVeiculo;
 
@@ -52,7 +52,7 @@ public class Veiculo implements Serializable {
 	@Column(name = "ND_VALOR")
 	private BigDecimal valor;
 
-	@Column(name = "NI_STATUS_VEICULO", columnDefinition = "integer default 1")
+	@Column(name = "NI_STATUS_VEICULO")
 	private StatusVeiculoEnum statusVeiculo;
 
 	@Column(name = "DTH_INCLUSAO", nullable = false, updatable = false)
@@ -71,15 +71,15 @@ public class Veiculo implements Serializable {
 	@Column(name = "VC_CIDADE")
 	private String cidade;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "NI_COD_CATEGORIA", referencedColumnName = "NI_COD_CATEGORIA")
 	private Categoria categoria;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "NI_COD_MARCA", referencedColumnName = "NI_COD_MARCA")
 	private Marca marca;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "NI_COD_MODELO", referencedColumnName = "NI_COD_MODELO")
 	private Modelo modelo;
 

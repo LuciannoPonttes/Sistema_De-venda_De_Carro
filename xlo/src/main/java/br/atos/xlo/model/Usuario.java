@@ -29,7 +29,7 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NI_COD_USUARIO")
 	private int codUsuario;
 
@@ -37,7 +37,7 @@ public class Usuario implements Serializable {
 	@JoinTable(name = "TB_ROLE_USUARIO", joinColumns = @JoinColumn(name = "NI_COD_USUARIO", referencedColumnName = "NI_COD_USUARIO"), inverseJoinColumns = @JoinColumn(name = "NI_COD_ROLE", referencedColumnName = "NI_COD_ROLE"))
 	private Set<Role> roles = new HashSet<>();
 
-	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "usuario")
 	private Endereco endereco;
 
 	@OneToMany(mappedBy = "usuario")
@@ -49,7 +49,7 @@ public class Usuario implements Serializable {
 	private String cpf;
 	@Column(name = "VC_EMAIL")
 	private String email;
-	@Column(name = "NI_STATUS", columnDefinition = "integer default 2")
+	@Column(name = "NI_STATUS")
 	private StatusUsuarioEnum statusUsuario;
 	@Column(name = "DTH_CADASTRO", nullable = false, updatable = false)
 	@CreationTimestamp
