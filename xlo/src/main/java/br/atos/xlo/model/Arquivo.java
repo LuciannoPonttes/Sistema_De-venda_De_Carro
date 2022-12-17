@@ -20,7 +20,7 @@ public class Arquivo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NI_COD_ARQUIVO")
 	private int codArquivo;
 	@Column(name = "VC_END_ARQUIVO")
@@ -31,6 +31,14 @@ public class Arquivo implements Serializable {
 
 	public int getCodArquivo() {
 		return codArquivo;
+	}
+
+	public List<Veiculo> getVeiculos() {
+		return veiculos;
+	}
+
+	public void setVeiculos(List<Veiculo> veiculos) {
+		this.veiculos = veiculos;
 	}
 
 	public void setCodArquivo(int codArquivo) {
@@ -45,12 +53,6 @@ public class Arquivo implements Serializable {
 		this.endArquivo = endArquivo;
 	}
 
-	public List<Veiculo> getVeiculos() {
-		return veiculos;
-	}
 
-	public void setVeiculos(List<Veiculo> veiculos) {
-		this.veiculos = veiculos;
-	}
 
 }

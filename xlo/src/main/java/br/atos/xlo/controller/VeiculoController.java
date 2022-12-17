@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import br.atos.xlo.controller.dto.base.View;
 import br.atos.xlo.controller.dto.base.response.ResponseNodePagination;
 import br.atos.xlo.dto.VeiculoDTO;
+import br.atos.xlo.enums.StatusVeiculoEnum;
 import br.atos.xlo.services.VeiculoServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
@@ -83,4 +84,14 @@ public class VeiculoController {
 		return new ResponseNodePagination<>(HttpStatus.OK, page);
 	}
 
+	
+	@Operation(summary = "Alterar Status do Veículo")
+	@PostMapping(value = "/alterar-status/{id}")
+	public ResponseEntity<Void> alterarStatus(@PathVariable(value = "id") Integer id, @RequestBody(required = true) @Valid StatusVeiculoEnum status ) {
+		veiculoService.alterarStatus(id, status);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	
+	
 }

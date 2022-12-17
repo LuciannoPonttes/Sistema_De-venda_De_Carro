@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import br.atos.xlo.dto.VeiculoDTO;
+import br.atos.xlo.enums.StatusVeiculoEnum;
 
 public interface VeiculoService {
 
@@ -14,5 +15,6 @@ public interface VeiculoService {
 	public void excluir(Integer id);
 	public VeiculoDTO editar(VeiculoDTO veiculoDTO);
 	public Page<VeiculoDTO> listarVeiculos(Pageable pageable, Integer status);
+	public void alterarStatus(Integer id, StatusVeiculoEnum status);
 	
 }

@@ -36,7 +36,7 @@ public class VeiculoDTO implements Body {
 	@NotNull
 	private int anoVeiculo;
 
-	@Schema(description = "Indicador de Garantia de Fabrica", example = "1", required = true)
+	@Schema(description = "Indicador de Garantia de Fábrica", example = "1", required = true)
 	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class,
 			View.ControllerView.Public.class })
 	@NotNull
@@ -97,33 +97,39 @@ public class VeiculoDTO implements Body {
 	@NotBlank
 	private String cidade;
 
-	@Schema(description = "Código da Categoria", example = "1", required = true)
+	@Schema(description = "Categoria do Veículo", required = true)
 	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class,
 			View.ControllerView.Public.class })
 	@Valid
 	private CategoriaDTO categoria;
 
-	@Schema(description = "Código da Marca", example = "1", required = true)
+	@Schema(description = "Marca do Veículo", required = true)
 	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class,
 			View.ControllerView.Public.class })
 	@Valid
 	private MarcaDTO marca;
 
-	@Schema(description = "Código do Modelo", example = "1", required = true)
+	@Schema(description = "Modelo do Veículo", required = true)
 	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class,
 			View.ControllerView.Public.class })
 	@NotNull
 	private ModeloDTO modelo;
 
-	@Schema(description = "Código do Modelo", example = "1", required = true)
-	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
-	@Valid
+	@Schema(description = "Código do Usuário", example = "'1'", required = true)
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class })
+	@NotNull
+	private int codUsuario;
+
+	@Schema(description = "Usuário do Veículo", required = true)
+	@JsonView(value = { View.ControllerView.Internal.class })
 	private UsuarioDTO usuario;
 
+	@Schema(description = "Itens do Veículo", required = true)
 	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.PUT.class, View.ControllerView.POST.class,
 			View.ControllerView.Public.class })
 	private Set<VeiculoItemDTO> itemsVeiculo;
 
+	@Schema(description = "Arquivos do Veículo", required = true)
 	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.PUT.class, View.ControllerView.POST.class,
 			View.ControllerView.Public.class })
 	private Set<ArquivoDTO> arquivosVeiculo;
@@ -260,12 +266,12 @@ public class VeiculoDTO implements Body {
 		this.modelo = modelo;
 	}
 
-	public UsuarioDTO getUsuario() {
-		return usuario;
+	public int getCodUsuario() {
+		return codUsuario;
 	}
 
-	public void setUsuario(UsuarioDTO usuario) {
-		this.usuario = usuario;
+	public void setCodUsuario(int codUsuario) {
+		this.codUsuario = codUsuario;
 	}
 
 	public Set<VeiculoItemDTO> getItemsVeiculo() {
@@ -282,6 +288,14 @@ public class VeiculoDTO implements Body {
 
 	public void setArquivosVeiculo(Set<ArquivoDTO> arquivosVeiculo) {
 		this.arquivosVeiculo = arquivosVeiculo;
+	}
+
+	public UsuarioDTO getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioDTO usuario) {
+		this.usuario = usuario;
 	}
 
 }

@@ -29,9 +29,7 @@ public class MarcaController {
 	@GetMapping(produces = "application/json")
 	@JsonView(View.ControllerView.Public.class)
 	public List<MarcaDTO> listar(
-			@RequestParam(value = "descricao", required = false) @Parameter(description = "Descrição da marca", example = "Audi", required = false) String descricao,
-			@RequestParam(value = "id", required = false) @Parameter(description = "ID da marca", example = "1", required = false) Long id
-	) {
-		return marcaService.listar();
+			@RequestParam(value = "descricao", required = false) @Parameter(description = "Descrição da marca", required = false) String descricao) {
+		return marcaService.listar(descricao);
 	}
 }
