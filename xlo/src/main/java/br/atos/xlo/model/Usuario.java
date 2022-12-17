@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -39,9 +38,6 @@ public class Usuario implements Serializable {
 
 	@OneToOne(mappedBy = "usuario")
 	private Endereco endereco;
-
-	@OneToMany(mappedBy = "usuario")
-	private Set<Veiculo> veiculo;
 
 	@Column(name = "VC_NOME")
 	private String nome;
@@ -146,14 +142,6 @@ public class Usuario implements Serializable {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
-	}
-
-	public Set<Veiculo> getVeiculo() {
-		return veiculo;
-	}
-
-	public void setVeiculo(Set<Veiculo> veiculo) {
-		this.veiculo = veiculo;
 	}
 
 	public Login getLogin() {

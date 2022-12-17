@@ -33,6 +33,14 @@ public class Arquivo implements Serializable {
 		return codArquivo;
 	}
 
+	public List<Veiculo> getVeiculos() {
+		return veiculos;
+	}
+
+	public void setVeiculos(List<Veiculo> veiculos) {
+		this.veiculos = veiculos;
+	}
+
 	public void setCodArquivo(int codArquivo) {
 		this.codArquivo = codArquivo;
 	}
@@ -45,12 +53,6 @@ public class Arquivo implements Serializable {
 		this.endArquivo = endArquivo;
 	}
 
-	public List<Veiculo> getVeiculos() {
-		return veiculos;
-	}
 
-	public void setVeiculos(List<Veiculo> veiculos) {
-		this.veiculos = veiculos;
-	}
 
 }

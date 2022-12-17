@@ -37,7 +37,7 @@ public class Endereco implements Serializable {
 	@Column(name = "VC_COMPLEMENTO")
 	private String complemento;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "NI_COD_USUARIO", referencedColumnName = "NI_COD_USUARIO")
 	private Usuario usuario;
 
@@ -112,7 +112,5 @@ public class Endereco implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	
 
 }

@@ -97,18 +97,31 @@ public class VeiculoServiceImpl implements VeiculoService {
 	@Override
 	public VeiculoDTO editar(VeiculoDTO veiculoDTO) {
 
+		Usuario usuario = usuarioRepository.findById(veiculoDTO.getCodUsuario()).orElse(null);
+
+		if (usuario == null) {
+			throw new EmptyResultDataAccessException("ID do usuário não encontrado: " + veiculoDTO.getCodUsuario(), 1);
+		}
+
+		List<VeiculoItem> itens = veiculoDTO.getItemsVeiculo().stream()
+				.map(item -> modelMapper.map(item, VeiculoItem.class)).collect(Collectors.toList());
+
+		List<Arquivo> arquivos = veiculoDTO.getArquivosVeiculo().stream()
+				.map(item -> modelMapper.map(item, Arquivo.class)).collect(Collectors.toList());
+
 		veiculoDTO.setDataAtualizacao(new Date());
 
-		VeiculoItem itens = modelMapper.map(veiculoDTO.getItemsVeiculo(), VeiculoItem.class);
-		Arquivo arquivos = modelMapper.map(veiculoDTO.getArquivosVeiculo(), Arquivo.class);
+		veiculoDTO.setArquivosVeiculo(null);
+		veiculoDTO.setItemsVeiculo(null);
 
+		veiculoDTO.setUsuario(modelMapper.map(usuario, UsuarioDTO.class));
 		Veiculo veiculo = veiculoRepository.save(modelMapper.map(veiculoDTO, Veiculo.class));
 
-		itens.setVeiculos(Arrays.asList(veiculo));
-		veiculoItemRepository.save(itens);
+		itens.stream().forEach(item -> item.setVeiculos(Arrays.asList(veiculo)));
+		veiculoItemRepository.saveAll(itens);
 
-		arquivos.setVeiculos(Arrays.asList(veiculo));
-		arquivoRepository.save(arquivos);
+		arquivos.stream().forEach(arq -> arq.setVeiculos(Arrays.asList(veiculo)));
+		arquivoRepository.saveAll(arquivos);
 
 		return modelMapper.map(veiculo, VeiculoDTO.class);
 	}
@@ -120,4 +133,20 @@ public class VeiculoServiceImpl implements VeiculoService {
 		return veiculos.map(user -> modelMapper.map(user, VeiculoDTO.class));
 	}
 
+	
+	@Override
+	public void alterarStatus(Integer id, StatusVeiculoEnum status) {
+		Veiculo veiculo = veiculoRepository.findById(id).orElse(null);
+
+		if (veiculo == null) {
+			throw new EmptyResultDataAccessException("Id de veículo não encontrado: " + id, 1);
+		} else {
+			veiculo.setStatusVeiculo(status);
+			veiculoRepository.save(veiculo);
+		}
+
+	}
+	
+	
+	
 }

@@ -83,7 +83,7 @@ public class Veiculo implements Serializable {
 	@JoinColumn(name = "NI_COD_MODELO", referencedColumnName = "NI_COD_MODELO")
 	private Modelo modelo;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "NI_COD_USUARIO", referencedColumnName = "NI_COD_USUARIO")
 	private Usuario usuario;
 

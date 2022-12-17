@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum StatusVeiculoEnum {
-	INATIVO(0), ATIVO(1);
+	INATIVO(0), ATIVO(1), VENDIDO(2);
 
 	private final int value;
 

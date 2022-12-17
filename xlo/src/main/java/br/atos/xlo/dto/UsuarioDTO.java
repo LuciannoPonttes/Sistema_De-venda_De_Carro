@@ -71,9 +71,6 @@ public class UsuarioDTO implements Body {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 	private Date dtAtualizacao;
 
-	@Schema(description = "Veículos do Usuário", required = false)
-	@JsonView(value = { View.ControllerView.GET.class, View.ControllerView.Public.class })
-	private Set<VeiculoDTO> veiculo;
 
 	public UsuarioDTO() {
 		super();
@@ -103,13 +100,6 @@ public class UsuarioDTO implements Body {
 		this.endereco = endereco;
 	}
 
-	public Set<VeiculoDTO> getVeiculo() {
-		return veiculo;
-	}
-
-	public void setVeiculo(Set<VeiculoDTO> veiculo) {
-		this.veiculo = veiculo;
-	}
 
 	public String getNome() {
 		return nome;

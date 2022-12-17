@@ -116,7 +116,7 @@ public class VeiculoDTO implements Body {
 	private ModeloDTO modelo;
 
 	@Schema(description = "Código do Usuário", example = "'1'", required = true)
-	@JsonView(value = { View.ControllerView.POST.class })
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class })
 	@NotNull
 	private int codUsuario;
 
