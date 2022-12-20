@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.atos.xlo.dto.MarcaDTO;
+import br.atos.xlo.model.Marca;
 import br.atos.xlo.repository.MarcaRepository;
 
 @Service
@@ -25,4 +26,13 @@ public class MarcaServiceImpl implements MarcaService {
 				.collect(Collectors.toList());
 	}
 
+	@Override
+	public void adicionar(MarcaDTO marcaDTO) {
+
+		marcaRepository.save(modelMapper.map(marcaDTO, Marca.class));
+		
+	}
+
+	
+	
 }

@@ -16,7 +16,6 @@ public class Marca implements Serializable {
 	private static final long serialVersionUID = 6143325443129902023L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NI_COD_MARCA")
 	private int codigoMarca;
 

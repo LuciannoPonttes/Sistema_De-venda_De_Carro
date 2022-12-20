@@ -1,5 +1,6 @@
 package br.atos.xlo.dto;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -22,6 +23,20 @@ public class ModeloDTO implements Body {
 	@NotNull
 	@NotBlank
 	private String descricaoModelo;
+	
+	public MarcaDTO getMarca() {
+		return marca;
+	}
+
+	public void setMarca(MarcaDTO marca) {
+		this.marca = marca;
+	}
+
+	@Schema(description = "Marca do Veículo", required = true)
+	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class,
+			View.ControllerView.Public.class })
+	@Valid
+	private MarcaDTO marca;
 
 	public int getCodigoModelo() {
 		return codigoModelo;
