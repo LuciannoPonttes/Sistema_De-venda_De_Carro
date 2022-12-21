@@ -23,7 +23,37 @@ public class ModeloDTO implements Body {
 	@NotNull
 	@NotBlank
 	private String descricaoModelo;
-	
+
+	@Schema(description = "Marca do Veículo", required = false)
+	@JsonView(value = { View.ControllerView.Internal.class })
+	@Valid
+	private MarcaDTO marca;
+
+	@Schema(description = "Categoria do Veículo", required = false)
+	@JsonView(value = { View.ControllerView.Internal.class })
+	@Valid
+	private CategoriaDTO categoria;
+
+	public ModeloDTO(int codigoModelo, @NotNull @NotBlank String descricaoModelo, @Valid MarcaDTO marca) {
+		super();
+		this.codigoModelo = codigoModelo;
+		this.descricaoModelo = descricaoModelo;
+		this.marca = marca;
+	}
+
+	public ModeloDTO(int codigoModelo, @NotNull @NotBlank String descricaoModelo, @Valid MarcaDTO marca,
+			@Valid CategoriaDTO categoria) {
+		super();
+		this.codigoModelo = codigoModelo;
+		this.descricaoModelo = descricaoModelo;
+		this.marca = marca;
+		this.categoria = categoria;
+	}
+
+	public ModeloDTO() {
+		super();
+	}
+
 	public MarcaDTO getMarca() {
 		return marca;
 	}
@@ -31,12 +61,6 @@ public class ModeloDTO implements Body {
 	public void setMarca(MarcaDTO marca) {
 		this.marca = marca;
 	}
-
-	@Schema(description = "Marca do Veículo", required = true)
-	@JsonView(value = { View.ControllerView.POST.class, View.ControllerView.PUT.class, View.ControllerView.GET.class,
-			View.ControllerView.Public.class })
-	@Valid
-	private MarcaDTO marca;
 
 	public int getCodigoModelo() {
 		return codigoModelo;
@@ -52,6 +76,14 @@ public class ModeloDTO implements Body {
 
 	public void setDescricaoModelo(String descricaoModelo) {
 		this.descricaoModelo = descricaoModelo;
+	}
+
+	public CategoriaDTO getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(CategoriaDTO categoria) {
+		this.categoria = categoria;
 	}
 
 }

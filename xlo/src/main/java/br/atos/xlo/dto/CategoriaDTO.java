@@ -18,6 +18,15 @@ public class CategoriaDTO implements Body {
 			View.ControllerView.Public.class })
 	private String descricaoCategoria;
 
+	public CategoriaDTO() {
+		super();
+	}
+
+	public CategoriaDTO(int codigoCategoria, String descricaoCategoria) {
+		super();
+		this.codigoCategoria = codigoCategoria;
+		this.descricaoCategoria = descricaoCategoria;
+	}
 
 	public int getCodigoCategoria() {
 		return codigoCategoria;

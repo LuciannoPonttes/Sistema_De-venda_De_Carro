@@ -2,7 +2,6 @@ package br.atos.xlo.dto;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;

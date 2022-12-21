@@ -22,15 +22,21 @@ public class ModeloServiceImpl implements ModeloService {
 
 	@Override
 	public List<ModeloDTO> listar(String descricao) {
-		return modeloRepository.listarModelos(descricao).stream().map(modelo -> modelMapper.map(modelo, ModeloDTO.class))
-				.collect(Collectors.toList());
+		return modeloRepository.listarModelos(descricao).stream()
+				.map(modelo -> modelMapper.map(modelo, ModeloDTO.class)).collect(Collectors.toList());
 	}
 
 	@Override
-	public void adicionar(ModeloDTO modeloDTO) {
-
-		modeloRepository.save(modelMapper.map(modeloDTO, Modelo.class));
-		
+	public ModeloDTO adicionarModelo(ModeloDTO modeloDTO) {
+		return modelMapper.map(modeloRepository.save(modelMapper.map(modeloDTO, Modelo.class)), ModeloDTO.class);
 	}
-	
+
+	@Override
+	public List<ModeloDTO> adicionarModelos(List<ModeloDTO> modelosDTO) {
+		List<Modelo> modelos = modelosDTO.stream().map(item -> modelMapper.map(item, Modelo.class))
+				.collect(Collectors.toList());
+		return modeloRepository.saveAll(modelos).stream().map(m -> modelMapper.map(m, ModeloDTO.class))
+				.collect(Collectors.toList());
+	}
+
 }

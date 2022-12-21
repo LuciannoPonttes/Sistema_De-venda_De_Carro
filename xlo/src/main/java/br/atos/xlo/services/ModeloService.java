@@ -7,5 +7,8 @@ import br.atos.xlo.dto.ModeloDTO;
 public interface ModeloService {
 
 	public List<ModeloDTO> listar(String descricao);
-	public void adicionar(ModeloDTO modelo);
+
+	public ModeloDTO adicionarModelo(ModeloDTO modeloDTO);
+
+	public List<ModeloDTO> adicionarModelos(List<ModeloDTO> modelosDTO);
 }

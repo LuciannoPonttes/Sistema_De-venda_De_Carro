@@ -27,12 +27,16 @@ public class MarcaServiceImpl implements MarcaService {
 	}
 
 	@Override
-	public void adicionar(MarcaDTO marcaDTO) {
-
+	public void adicionarMarca(MarcaDTO marcaDTO) {
 		marcaRepository.save(modelMapper.map(marcaDTO, Marca.class));
-		
+
 	}
 
-	
-	
+	public void adicionarMarcas(List<MarcaDTO> marcasDTO) {
+		List<Marca> marcas = marcasDTO.stream().map(item -> modelMapper.map(item, Marca.class))
+				.collect(Collectors.toList());
+		marcaRepository.saveAll(marcas);
+
+	}
+
 }

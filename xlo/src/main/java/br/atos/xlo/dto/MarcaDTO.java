@@ -1,5 +1,6 @@
 package br.atos.xlo.dto;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -23,6 +24,28 @@ public class MarcaDTO implements Body {
 	@NotBlank
 	private String descricaoMarca;
 
+	@Schema(description = "Categoria do Veículo", required = false)
+	@JsonView(value = { View.ControllerView.Internal.class })
+	@Valid
+	private CategoriaDTO categoria;
+
+	public MarcaDTO() {
+		super();
+	}
+
+	public MarcaDTO(int codigoMarca, @NotNull @NotBlank String descricaoMarca) {
+		super();
+		this.codigoMarca = codigoMarca;
+		this.descricaoMarca = descricaoMarca;
+	}
+
+	public MarcaDTO(int codigoMarca, @NotNull @NotBlank String descricaoMarca, @Valid CategoriaDTO categoria) {
+		super();
+		this.codigoMarca = codigoMarca;
+		this.descricaoMarca = descricaoMarca;
+		this.categoria = categoria;
+	}
+
 	public int getCodigoMarca() {
 		return codigoMarca;
 	}
@@ -37,6 +60,14 @@ public class MarcaDTO implements Body {
 
 	public void setDescricaoMarca(String descricaoMarca) {
 		this.descricaoMarca = descricaoMarca;
+	}
+
+	public CategoriaDTO getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(CategoriaDTO categoria) {
+		this.categoria = categoria;
 	}
 
 }
